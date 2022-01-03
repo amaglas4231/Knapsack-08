@@ -1,17 +1,17 @@
 ## Structure of the code
 
 In src we have 3 folders:
-    > Bot - for the bot related classes:
-                            <Class.java>    // write the names of the classes
-                            <Class.java>
-    > Implementation - for the implementation classes:
-                            <Class.java>
-                            <Class.java>
-                            <Class.java>
-    > UI - for the user interface classes:
-                            <Class.java>
-                            <Class.java>
-    > A class <App.java> that runs the program
+- Bot - for the bot related classes:
+                        <Class.java>    // write the names of the classes
+                        <Class.java>
+- Implementation - for the implementation classes:
+                        <Class.java>
+                        <Class.java>
+                        <Class.java>
+- UI - for the user interface classes:
+                        <Class.java>
+                        <Class.java>
+- A class <App.java> that runs the program
 
 ## How it works
 
