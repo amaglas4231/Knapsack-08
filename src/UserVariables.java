@@ -1,4 +1,3 @@
-package Draft;
 public class UserVariables {
 
     final static int container_width = 1650;

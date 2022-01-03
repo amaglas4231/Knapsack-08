@@ -1,5 +1,3 @@
-package Draft;
-
 public class Parcels{
     
     private String name;

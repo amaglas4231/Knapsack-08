@@ -1,10 +1,8 @@
-package Draft;
-
+/*
+* class to contain all rotations of pentominoes and parcels 
+*/
 public class Rotations {
 
-    /*class to contain all rotations on pentominoes and parcels 
-    */
-
-    aaaa;
+    
     
 }
