@@ -3,15 +3,19 @@ package UI;
 public class UserInput {
 
     String type;
-    int amount;
+    static int amount;
     float value;
 
-   // UserInput("Pentominoe", 10, 4)
+    // UserInput("Pentominoe", 10, 4)
 
-    public UserInput(String t, int a, float v){
-        this.amount = a;
+    public UserInput(String t, int a, float v) {
+        amount = a;
         this.type = t;
         this.value = v;
     }
-    
+
+    public static int getAmount() {
+        return amount;
+    }
+
 }
