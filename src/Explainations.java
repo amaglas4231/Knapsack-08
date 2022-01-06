@@ -1,5 +1,3 @@
-package Draft;
-
 public class Explainations {
 
     /*
