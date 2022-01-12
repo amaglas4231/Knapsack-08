@@ -9,7 +9,7 @@ public class Parcels {
     private int placed;
     private int amount;
 
-    Parcels(String n, int r, /* int c */ int v, int p, int a) {
+    public Parcels(String n, int r, /* int c */ int v, int p, int a) {
         this.name = n;
         this.rotation = r;
         // this.colors = c;

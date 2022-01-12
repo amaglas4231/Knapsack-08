@@ -1,10 +1,11 @@
-package Implementation;
+package GreedyA;
 
 import java.util.ArrayList;
 
+import Implementation.Parcels;
 import UI.UserVariables;
 
-public class GreedyAlg {
+public class GreedyAlgorithm {
     public static Parcels parcelA;
     public static Parcels parcelB;
     public static Parcels parcelC;
@@ -52,6 +53,7 @@ public class GreedyAlg {
         AllParcels.add(parcelB);
 
         FillContainer();
+
         Informations();
     }
 
@@ -162,8 +164,8 @@ public class GreedyAlg {
         int PieceID = PiecesAndRotations[0];
         // int RotationID = PiecesAndRotations[1];
         AllParcels.get(PieceID).setPlaced(AllParcels.get(PieceID).getPlaced() + 1);
-        System.out.println("Parcels  " + PiecesAndRotations[0] + "with rotations : " + PiecesAndRotations[1]
-                + " placed at " + position[0] + ", " + position[1] + ", " + position[2]);
+        System.out.println("Parcels: " + PiecesAndRotations[0] + " with rotations: " + PiecesAndRotations[1]
+                + " placed at: " + position[0] + ", " + position[1] + ", " + position[2]);
     }
 
     /**
