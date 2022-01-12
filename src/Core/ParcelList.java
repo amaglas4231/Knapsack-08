@@ -1,8 +1,79 @@
-package Implementation;
+package Core;
 
 import java.util.ArrayList;
 
-public class ParcelList {
+public class ParcelList extends ArrayList<Parcels>{
+    private ArrayList<Integer> amounts;
+
+    /**
+     * 
+     */
+    public ParcelList(){
+        amounts = new ArrayList<>();
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public ParcelList copy(){
+        ParcelList newList = new ParcelList();
+        for(int i=0; i<size(); i++){
+            newList.addWithAmount(get(i).copy());
+        }
+        return newList;
+    }
+
+    /**
+     * 
+     * @param parcel
+     */
+    public void addWithAmount(Parcels parcel){
+        this.amounts.add(parcel.getAmount());
+        add(parcel);
+    }
+
+    /**
+     * 
+     * @param index
+     */
+    public void removeParcel(int index){
+        if(amounts.get(index) == 1){
+            remove(index);
+            amounts.remove(index);
+        }
+        else{
+            amounts.set(index, amounts.get(index)-1);
+        }
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getTotalSize(){
+        int sum = 0;
+        for(int i: amounts){
+            sum += i;
+        }
+        return sum;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public ArrayList<Parcels> getFullArray(){
+        ArrayList<Parcels> list = new ArrayList<>();
+        for (int i=0; i<size();i++){
+            for (int j=0; j<amounts.get(i);j++){
+                list.add(get(i).copy());
+            }
+        }
+        return list;
+    }
+}
+/*{
 
     public void add(Parcels parcels, int i) {
     }

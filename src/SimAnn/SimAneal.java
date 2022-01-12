@@ -1,10 +1,11 @@
-package Implementation;
+package SimAnn;
 
 import java.util.ArrayList;
 
 import UI.UserVariables;
 
 public class SimAneal {
+    /*
     private static ArrayList<Parcels> parcelsList;
     private int[][] sequence;
     private Container bestContainer;
@@ -24,7 +25,7 @@ public class SimAneal {
 
     /**
      * 
-     */
+     *
     public SimAneal() {
         // change the formating of the rotations
         parcelARotations = new int[][][][] {
@@ -55,9 +56,9 @@ public class SimAneal {
 
         ParcelList pList = new ParcelList();
 
-        pList.add(new Parcels("A", parcelARotations.length, 3, 0, 30), 30);
-        pList.add(new Parcels("B", parcelBRotations.length, 4, 0, 10), 10);
-        pList.add(new Parcels("C", parcelCRotations.length, 5, 0, 22), 22);
+        pList.addWithAmount(new Parcels("A", parcelARotations.length, 3, 0, 30), 30);
+        pList.addWithAmount(new Parcels("B", parcelBRotations.length, 4, 0, 10), 10);
+        pList.addWithAmount(new Parcels("C", parcelCRotations.length, 5, 0, 22), 22);
 
         parcelsList = pList.getFullArray();
 
@@ -74,7 +75,7 @@ public class SimAneal {
      * @param t - temperature
      * @param l -
      * @param r -
-     */
+     *
     public SimulatedAnnealing(double t, double l, String r) {
         temperature = t;
         lastTemp = l;
@@ -83,7 +84,7 @@ public class SimAneal {
 
     /**
      * 
-     */
+     *
     public static void CoolingProcess() {
         String reductionTypeLast = reductionType.toLowerCase();
 
@@ -119,7 +120,7 @@ public class SimAneal {
      * 
      * @param s The given sequence triple to generate the neighbourhood from
      * @return An ArrayList of sequence triples defining the created neighbourhood.
-     */
+     *
     private ArrayList<int[][]> createNeighbourhood(int[][] s) {
         ArrayList<int[][]> sequenceList = new ArrayList<>();
 
@@ -154,7 +155,7 @@ public class SimAneal {
      *              (0 = sequence A; 1 = sequence B; 2 = sequence C; 3 = rotation
      *              vector)
      * @return The sequence triple with the permuted items.
-     */
+     *
     private int[][] switchItems(int[][] s, int index) {
         int a = (int) (Math.random() * s[0].length);
         int b;
@@ -179,7 +180,7 @@ public class SimAneal {
     /**
      * The simulated annealing loop. It runs for a given time and sets the best
      * truck to the best result it found.
-     */
+     *
     private void simulate() {
         // long startTime = System.currentTimeMillis();
 
@@ -244,7 +245,7 @@ public class SimAneal {
      * respectively.
      * 
      * @return the total value.
-     */
+     *
     public static int EvaluateTotalValue() {
         return 0;
 
@@ -254,7 +255,7 @@ public class SimAneal {
      * Fills the truck with the best configuration.
      * 
      * @return the current truck.
-     */
+     *
     public void fillContainer(int[][] s) {
         // need to check every parcel type, every rotation of the parcel, and x,y,z axis
         // of container
@@ -304,7 +305,7 @@ public class SimAneal {
      *                            (stores the x,y,z coordinates)
      * @param PiecesAndRotations: store first the ID of the piece, then its rotation
      *                            index
-     */
+     *
     public static void addParcel(int[][][] parcel, int[] position, int[] PiecesAndRotations, int value) {
         if (!checkEmpty(parcel, position)) {
             for (int i = 0; i < parcel.length; i++) {
@@ -329,7 +330,7 @@ public class SimAneal {
      * @param parcel:   piece to add to the container, parcel or pentominoe
      * @param position: location where to add piece in container
      * @return: return true if we can indeed put the piece in the intended location
-     */
+     *
     public static boolean checkEmpty(int[][][] parcel, int[] position) {
         if (position[0] < 0 || position[1] < 0 || position[2] < 0) {
             return true;
@@ -355,7 +356,7 @@ public class SimAneal {
      * 
      * @return false if it is possible to put at least one parcel in it; true if the
      *         truck is completely full.
-     */
+     *
     public static boolean checkTruckFilled() {
         return true;
     }

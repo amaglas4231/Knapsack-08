@@ -1,4 +1,4 @@
-package Implementation;
+package Core;
 
 /*
 * class to contain all rotations of pentominoes and parcels 

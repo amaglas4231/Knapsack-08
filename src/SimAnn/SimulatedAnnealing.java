@@ -1,14 +1,22 @@
-package Implementation;
+package SimAnn;
 
 import java.util.ArrayList;
+
+import Core.Container;
+import Core.ParcelList;
+import Core.Parcels;
 
 public class SimulatedAnnealing {
     private double beta = 0.2; // cooling parameter
     private double alpha = 0.002; // heating parameter
 
     private Container bestContainer;
-    private ArrayList<Parcels> list;
+    private ArrayList<Parcels> parcelsList;
     private int[][] sequence;
+
+    static int[][][][] parcelARotations;
+    static int[][][][] parcelBRotations;
+    static int[][][][] parcelCRotations;
 
     private static final double INITIAL_TEMPERATURE = 0.2;
     private static final int TOTAL_ROTATIONS = 6; // to be adapted if pentominoes
@@ -22,17 +30,23 @@ public class SimulatedAnnealing {
      * each parcels to be used.
      */
     public SimulatedAnnealing() {
+        initiateParcelsRotations();
+
         ParcelList pList = new ParcelList();
 
-        pList.add(new Parcels("A"), 82);
-        pList.add(new Parcels("B"), 55);
-        pList.add(new Parcels("C"), 48);
+        pList.addWithAmount(new Parcels("A", parcelARotations.length, 3, 0, 30));
+        pList.addWithAmount(new Parcels("B", parcelBRotations.length, 4, 0, 10));
+        pList.addWithAmount(new Parcels("C", parcelCRotations.length, 5, 0, 22));
+
+        // pList.add(new Parcels("A"), 82);
+        // pList.add(new Parcels("B"), 55);
+        // pList.add(new Parcels("C"), 48);
 
         // pList.add(new PentominoParcel("L"),3);
         // pList.add(new PentominoParcel("P"),3);
         // pList.add(new PentominoParcel("T"),3);
 
-        list = pList.getFullArray();
+        parcelsList = pList.getFullArray();
 
         sequence = new int[4][pList.getTotalSize()];
     }
@@ -43,12 +57,41 @@ public class SimulatedAnnealing {
      * @param pList
      */
     public SimulatedAnnealing(Parcels[] pList) {
-        list = new ArrayList<>();
+        parcelsList = new ArrayList<>();
         for (Parcels p : pList) {
-            list.add(p.copy());
+            parcelsList.add(p.copy());
         }
 
-        sequence = new int[4][list.size()];
+        sequence = new int[4][parcelsList.size()];
+    }
+
+    void initiateParcelsRotations() {
+        // TODO: replace 1s with the value of each parcel
+        parcelARotations = new int[][][][] {
+                { { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } }, { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } } },
+                { { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } } },
+                { { { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 } } }
+        };
+
+        parcelBRotations = new int[][][][] {
+                { { { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } },
+                        { { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } } },
+                { { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } },
+                        { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } } },
+                { { { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 }, { 1, 1 } },
+                        { { 1, 1 }, { 1, 1 }, { 1, 1 } } },
+                { { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } }, { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } },
+                        { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } } },
+                { { { 1, 1, 1 }, { 1, 1, 1 } }, { { 1, 1, 1 }, { 1, 1, 1 } }, { { 1, 1, 1 }, { 1, 1, 1 } },
+                        { { 1, 1, 1 }, { 1, 1, 1 } } },
+                { { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } },
+                        { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } } }
+        };
+
+        parcelCRotations = new int[][][][] {
+                { { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } }, { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } },
+                        { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } } }
+        };
     }
 
     /**
@@ -64,7 +107,7 @@ public class SimulatedAnnealing {
 
     /**
      * The simulated annealing loop. It runs for a given time and sets the best
-     * Container to the best result it found.
+     * container to the best result it found.
      */
     private void simulate() {
         // variable initialization
@@ -88,15 +131,18 @@ public class SimulatedAnnealing {
         while (System.currentTimeMillis() - startTime < timeToRun && bestContainer.getGapAmount() > 0) {
 
             // creates neighbourhood
-            ArrayList<int[][]> neighbourhood = generate(sequence); // place list here
+            ArrayList<int[][]> neighbourhood = randomize(sequence); // place list here
 
             // tries to fill Container with random neighbour
             Container newT = fill(neighbourhood.get((int) (Math.random() * neighbourhood.size())));
             int unit;
-            if (value)
+
+            if (value) {
                 unit = newT.getValue();
-            else
+            } else {
                 unit = newT.getParcelVolume();
+            }
+
             boolean better = false;
 
             // check if filling is better in new neighbour
@@ -124,28 +170,30 @@ public class SimulatedAnnealing {
     }
 
     /**
-     * Generates a random sequence triple to fill the Container. The sequence is used to
+     * Generates a random sequence triple to fill the Container. The sequence is
+     * used to
      * define the placing order of the items to be placed in the Container.
      */
     private void generate() {
         // A, B & C sequence definition
         for (int i = 0; i < sequence.length - 1; i++) {
             for (int j = 0; j < sequence[0].length; j++) {
-                int parcel;
+                int columnIndex;
                 boolean contains;
                 do {
                     contains = false;
-                    parcel = (int) (Math.random() * sequence[0].length);
+                    columnIndex = (int) (Math.random() * sequence[0].length); // TODO: could be changed
                     for (int k = j - 1; k > 0; k--)
-                        if (sequence[i][k] == parcel)
+                        if (sequence[i][k] == columnIndex)
                             contains = true;
                 } while (contains);
-                sequence[i][j] = parcel;
+                sequence[i][j] = columnIndex;
             }
         }
+
         // rotation vector definition
         for (int i = 0; i < sequence[0].length; i++) {
-            sequence[3][i] = (int) (Math.random() * TOTAL_ROTATIONS);
+            sequence[3][i] = (int) (Math.random() * TOTAL_ROTATIONS); // tot_rot = 6
         }
     }
 
@@ -155,7 +203,7 @@ public class SimulatedAnnealing {
      * @param s The given sequence triple to generate the neighbourhood from
      * @return An ArrayList of sequence triples defining the created neighbourhood.
      */
-    private ArrayList<int[][]> generate(int[][] s) {
+    private ArrayList<int[][]> randomize(int[][] s) {
         ArrayList<int[][]> sequenceList = new ArrayList<>();
 
         // one change
@@ -193,175 +241,53 @@ public class SimulatedAnnealing {
     private int[][] switchBox(int[][] s, int index) {
         int a = (int) (Math.random() * s[0].length);
         int b;
+
         do {
             b = (int) (Math.random() * s[0].length);
         } while (b == a);
+
         int[][] newS = new int[s.length][s[0].length];
+        
         for (int i = 0; i < s.length; i++) {
             System.arraycopy(s[i], 0, newS[i], 0, s[0].length);
         }
+        
         int temp = newS[index][a];
         newS[index][a] = newS[index][b];
         newS[index][b] = temp;
+        
         return newS;
     }
 
     /**
-     * Method used to fill a Container with a sequence of parcels. Follows the sequence
+     * Method used to fill a Container with a sequence of parcels. Follows the
+     * sequence
      * B.
      * 
      * @param s The sequence with which the Container has to be filled.
      * @return A filled Container.
      */
     private Container fill(int[][] s) {
-        Container t = new Container();
-        // item to place
+        Container cont = new Container();
+
         for (int i = 0; i < s[0].length; i++) {
-            // only sequence B, see report for details
-            Parcels toPlace = list.get(s[1][i]).copy();
-            // rotation loop
-            for (int j = 0; j < s[3][s[1][i]]; j++) {
-                if (j % 3 == 0)
-                    toPlace.rotateAroundX();
-                else if (j % 3 == 1)
-                    toPlace.rotateAroundZ();
-                else
-                    toPlace.rotateAroundY();
+            Parcels toPlace = parcelsList.get(s[1][i]).copy(); // make copy because of rotation
+            int[][][] representationParcel;
+
+            if (toPlace.getName().equals("A")) {
+                representationParcel = parcelARotations[s[3][s[1][i]] % 3];
+                // TODO: try to change the sequence to only have 2 rows (sequence + rotation) or
+                // 2 seperate arrays
+            } else if (toPlace.getName().equals("B")) {
+                representationParcel = parcelBRotations[s[3][s[1][i]]];
+            } else {
+                representationParcel = parcelCRotations[0];
             }
 
-            t.addParcel(toPlace);
+            cont.addParcel(representationParcel);
+            // TODO: increase value of container
         }
-        return t;
+        return cont;
     }
 
-    /*
-     * // variables
-     * // private static Container container;
-     * private static int[][][] cont;
-     * private static int[][][] bestContainer;
-     * 
-     * ParcelList parcelList;
-     * private int[][][][] parcelARotations;
-     * private int[][][][] parcelBRotations;
-     * private int[][][][] parcelCRotations;
-     * 
-     * // Constructors:
-     * public SimulatedAnnealing() {
-     * parcelARotations = new int[][][][] {
-     * { { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } }, { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } } },
-     * { { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 }, { 1, 1 },
-     * { 1, 1 } } },
-     * { { { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 } }, { {
-     * 1, 1 }, { 1, 1 } } }
-     * };
-     * 
-     * parcelBRotations = new int[][][][] {
-     * { { { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } },
-     * { { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } } },
-     * { { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } },
-     * { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } } },
-     * { { { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1,
-     * 1 }, { 1, 1 }, { 1, 1 } },
-     * { { 1, 1 }, { 1, 1 }, { 1, 1 } } },
-     * { { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } }, { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } },
-     * { { 1, 1, 1, 1 }, { 1, 1, 1, 1 } } },
-     * { { { 1, 1, 1 }, { 1, 1, 1 } }, { { 1, 1, 1 }, { 1, 1, 1 } }, { { 1, 1, 1 },
-     * { 1, 1, 1 } },
-     * { { 1, 1, 1 }, { 1, 1, 1 } } },
-     * { { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } }, { { 1, 1 }, { 1, 1 }, { 1, 1 },
-     * { 1, 1 } },
-     * { { 1, 1 }, { 1, 1 }, { 1, 1 }, { 1, 1 } } }
-     * };
-     * 
-     * parcelCRotations = new int[][][][] {
-     * { { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } }, { { 1, 1, 1 }, { 1, 1, 1 }, { 1,
-     * 1, 1 } },
-     * { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } } }
-     * };
-     * 
-     * }
-     * 
-     * // For the alg:
-     * public int[][][] bestContainer() {
-     * return bestContainer;
-     * }
-     * 
-     * public void createNeighbourhood() {
-     * 
-     * }
-     * 
-     * // for containers:
-     * public void fillCont() {
-     * while (parcelList.getTail() != null) {
-     * int value = parcelList.getvalueHead();
-     * int[][][] parcel = parcelList.removeFirstParcel();
-     * 
-     * for (int x = 0; x < cont.length; x++) {
-     * for (int y = 0; y < cont[0].length; y++) {
-     * for (int z = 0; z < cont[0][0].length; z++) {
-     * if (checkIfFits(cont, parcel, x, y, z)) {
-     * addParcel(parcel, value, x, y, z);
-     * }
-     * }
-     * }
-     * }
-     * }
-     * 
-     * // return cont;
-     * }
-     * 
-     * /**
-     * 
-     * @param cont2
-     * 
-     * @param parcel
-     * 
-     * @param x
-     * 
-     * @param y
-     * 
-     * @param z
-     * 
-     * @return - true if it can be placed and false if it can't
-     *
-     * private boolean checkIfFits(int[][][] cont2, int[][][] parcel, int x, int y,
-     * int z) {
-     * for (int i = 0; i < parcel.length; i++) {
-     * for (int j = 0; j < parcel[0].length; j++) {
-     * for (int k = 0; k < parcel[0][0].length; k++) {
-     * if (x + i > cont2.length || y + j > cont2[0].length || z + k >
-     * cont2[0][0].length
-     * || cont2[x + i][y + j][z + k] != 0) {
-     * return false;
-     * }
-     * }
-     * }
-     * }
-     * 
-     * return true;
-     * }
-     * 
-     * /**
-     * Adds a parcel in the container at the specified coordinates.
-     * 
-     * @param parcel - 2d array representing the parcel
-     * 
-     * @param value - the value of the parcel
-     * 
-     * @param x - coordinate x where the parcel is going to be placed
-     * 
-     * @param y - coordinate y where the parcel is going to be placed
-     * 
-     * @param z - coordinate z where the parcel is going to be placed
-     *
-     * private void addParcel(int[][][] parcel, int value, int x, int y, int z) {
-     * for (int i = 0; i < parcel.length; i++) {
-     * for (int j = 0; j < parcel[0].length; j++) {
-     * for (int k = 0; k < parcel[0][0].length; k++) {
-     * cont[x + i][y + j][z + k] = value;
-     * }
-     * }
-     * }
-     * }
-     */
 }

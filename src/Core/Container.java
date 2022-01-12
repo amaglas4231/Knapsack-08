@@ -1,10 +1,10 @@
-package Implementation;
+package Core;
 
 public class Container {
     private int length;
     private int height;
     private int width;
-    private int[][][] container;
+    private int[][][] container; // 3d representation of the container
 
     private int value;
 
@@ -24,18 +24,13 @@ public class Container {
      * 
      * @param cont
      */
-    public Container(int[][][] cont) {
+    private Container(int[][][] cont, int value) {
         length = cont.length;
         height = cont[0].length;
         width = cont[0][0].length;
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                for (int k = 0; k < length; k++) {
-                    container[i][j][k] = cont[i][j][k];
-                }
-            }
-        }
+        this.container = cont;
+        this.value = value;
     }
 
     /**
@@ -77,7 +72,7 @@ public class Container {
      * @return - number of gaps in Container.
      */
     public int getGapAmount() {
-        // TODO: count the n.o. gaps
+        // TODO: count the n.o. gaps (basically the 0's)
         return 0;
     }
 
@@ -88,6 +83,7 @@ public class Container {
      */
     public Container copy() {
         int[][][] newContainer = new int[container.length][container[0].length][container[0][0].length];
+
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 for (int k = 0; k < length; k++) {
@@ -96,13 +92,19 @@ public class Container {
             }
         }
 
-        return new Container(newContainer);
+        return new Container(newContainer, this.value);
     }
 
+    /**
+     * 
+     * @param toPlace
+     */
     public void addParcel(int[][][] toPlace) {
         for(int x = 0; x < this.length; x++) {
             for(int y = 0; y < this.height; y++) {
-                
+                for(int z = 0; z < this.width; z++) {
+                    // TODO: implement
+                }
             }
         }
         /*

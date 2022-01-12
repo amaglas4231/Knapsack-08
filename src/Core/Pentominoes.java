@@ -1,4 +1,4 @@
-package Implementation;
+package Core;
 
 public class Pentominoes {
 

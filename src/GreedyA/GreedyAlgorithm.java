@@ -2,7 +2,7 @@ package GreedyA;
 
 import java.util.ArrayList;
 
-import Implementation.Parcels;
+import Core.Parcels;
 import UI.UserVariables;
 
 public class GreedyAlgorithm {
