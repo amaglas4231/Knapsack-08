@@ -100,7 +100,11 @@ public class Container {
     }
 
     public void addParcel(int[][][] toPlace) {
-
+        for(int x = 0; x < this.length; x++) {
+            for(int y = 0; y < this.height; y++) {
+                
+            }
+        }
         /*
          * if (!checkEmpty(parcel, position)) {
          * for (int i = 0; i < toPlace.length; i++) {
@@ -116,6 +120,15 @@ public class Container {
          */
     }
 
+    /**
+     * Checks if a certain piece fits in the container at the specified coordinates.
+     * 
+     * @param piece - piece to be placed
+     * @param x     - the x coordinate
+     * @param y     - the y coordinate
+     * @param z     - the z coordinate
+     * @return - 'true' if it can be placed
+     */
     public boolean checkIfFits(int[][][] piece, int x, int y, int z) {
         if (x < 0 || y < 0 || z < 0) {
             return false;

@@ -1,7 +1,23 @@
 package Implementation;
 
+import java.util.ArrayList;
+
 public class ParcelList {
-    class Node {
+
+    public void add(Parcels parcels, int i) {
+    }
+
+    public ArrayList<Parcels> getFullArray() {
+        return null;
+    }
+
+    public int getTotalSize() {
+        return 0;
+    }
+    
+}
+/*
+class Node {
         private int[][][] parcel;
         private int value;
         private Node next;
@@ -40,7 +56,7 @@ public class ParcelList {
     /**
      * 
      * @param p     - the first parcel
-     */
+     *
     public ParcelList(int[][][] p, int v) {
         head = new Node(p, v);
         tail = head;
@@ -77,4 +93,4 @@ public class ParcelList {
     public Node getTail() {
         return tail;
     }
-}
+*/

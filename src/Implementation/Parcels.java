@@ -9,6 +9,10 @@ public class Parcels {
     private int placed;
     private int amount;
 
+    public Parcels(String name) {
+        this.name = name;
+    }
+
     public Parcels(String n, int r, /* int c */ int v, int p, int a) {
         this.name = n;
         this.rotation = r;
@@ -69,6 +73,10 @@ public class Parcels {
 
     public int setAmount(int a) {
         return this.amount = a;
+    }
+
+    public Parcels copy() {
+        return null;
     }
 
 }
