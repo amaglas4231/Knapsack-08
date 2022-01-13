@@ -1,10 +1,8 @@
 package GeneticA;
 
-import java.io.*;
 import java.util.*;
 
 import Core.*;
-import UI.*;
 
 /*Problem in the way I declared my container --SOLVED
 *If cargo is filled, than there is a 1 at the position (when we will add UI it will be a color)
@@ -216,7 +214,7 @@ public class DepthSearch {
             }
 
             int PieceID = PiecesAndRotations[0];
-            int RotationID = PiecesAndRotations[1];
+            // int RotationID = PiecesAndRotations[1];
             AllPentominoes.get(PieceID).setAmount(AllPentominoes.get(PieceID).getAmount() - 1);
             // System.out.println("Parcels "+PiecesAndRotations[0]+"with rotations :
             // "+PiecesAndRotations[1]+" placed at "+ position[0]+ ", "+position[1]+",

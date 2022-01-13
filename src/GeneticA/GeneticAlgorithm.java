@@ -1,40 +1,23 @@
 package GeneticA;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 import Core.UserVariables;
 
 public class GeneticAlgorithm {
     private static int PopulationSize = 100;
     private static double MutationRate = 0.75; // idk rn
-    private static int Generation = 0;
+    // private static int Generation = 0;
     private static int maxIteration = 1000;
     public static boolean Placed = true;
-    /*
-     * public static Parcels parcelA;
-     * public static Parcels parcelB;
-     * public static Parcels parcelC;
-     */
+
     static int[][][][] parcelARotations;
     static int[][][][] parcelBRotations;
     static int[][][][] parcelCRotations;
-    // static ArrayList <Parcels> AllParcels;
 
-    /*
-     * Calculer le volume :
-     * -verifier si volume total des pieces est pas superieur a volume du container
-     * -
-     * -check if it goes in, if it goes in, add score
-     * /*
-     * Etapes :
-     * -Evaluer pop : fitness function
-     * -Crossover : faire reproduire pop
-     * -Mutations
-     * -selection : fait durant la reproduction
-     * -Target fitness ou nb d'evaluation (DO IT IN WHILE LOOP)
+    /**
+     * 
      */
-
     public static ArrayList<ArrayList<Integer>> Crossover() {
         /* CROSSOVER AND BABIES CREATION */
         // Using tournament selection
@@ -59,15 +42,6 @@ public class GeneticAlgorithm {
                                                   // increasing order
             SubGroup.get(4).set(n2, SubGroup.get(3).get(n2));
             SubGroup.get(3).set(n1, n3);
-            /*
-             * System.out.println("-----NEW GROUP-----");
-             * for(int k = 0; k<3;k++){
-             * System.out.println(SubGroup.get(4).get(k));
-             * System.out.println(SubGroup.get(3).get(k));
-             * }
-             * System.out.println(score[4]);
-             * System.out.println(score[3]);
-             */
 
             for (int i = 0; i < 5; i++) { // restoring the population to 100 (20*5)
                 ArrayList<Integer> one = new ArrayList<Integer>();
@@ -86,20 +60,6 @@ public class GeneticAlgorithm {
 
     public static ArrayList<ArrayList<Integer>> MutationsBabyyy(ArrayList<ArrayList<Integer>> Pop) {
         // Pop = Crossover();
-        /*
-         * System.out.println("-----------POP pre mutation-----------");
-         * for(int j = 0; j<PopulationSize; j++){
-         * System.out.println(PopulationLea.Population.get(j));
-         * }
-         * /*try{
-         * Thread.sleep(1000);
-         * }
-         * catch(InterruptedException ex)
-         * {
-         * Thread.currentThread().interrupt();
-         * }
-         */
-
         for (int i = 0; i < PopulationSize; i++) {
             int index = ThreadLocalRandom.current().nextInt(0, 3);
             Integer index2;
