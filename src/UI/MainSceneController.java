@@ -98,7 +98,7 @@ public class MainSceneController extends Application {
 
         initMouseControl(group, scene, primaryStage);
 
-        primaryStage.setTitle("Trial");
+        primaryStage.setTitle("3D Knapsack");
         primaryStage.setScene(scene);
         primaryStage.show();
 
