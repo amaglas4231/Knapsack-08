@@ -1,4 +1,4 @@
-package SimAnn;
+package SimulatedAnnealingA;
 
 import java.util.ArrayList;
 

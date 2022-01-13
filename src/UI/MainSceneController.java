@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import Core.*;
 import GeneticA.*;
 import GreedyA.*;
-import SimAnn.*;
+import SimulatedAnnealingA.*;
 
 // alt shift F to format
 

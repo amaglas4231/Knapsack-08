@@ -5,27 +5,23 @@
 ## Structure of the code
 
 In src we have 3 folders:
+- Core - for the helping classes:
+                        <Container.java>
+                        <ParcelList.java>
+                        <Parcels.java>
+                        <Pentominoes.java>
+                        <Rotations.java>
+                        <UserInput.java>
+                        <UserVariables.java>
 - GeneticA - for the genetic algorithm:
-                        <Class.java>    // write the names of the classes
-                        <Class.java>
-- Implementation - for the implementation classes:
-                        <Class.java>
-                        <Class.java>
-                        <Class.java>
+                        <DepthSearch.java>
+                        <GeneticAlgorithm.java>
+                        <PopulationLea.java>
+- GreedyA - for the greedy algorithm:
+                        <GreedyAlgorithm.java>
+- SimulatedAnnealingA - for the simulated annealing algorithm:
+                        <SimulatedAnnealing.java>
 - UI - for the user interface classes:
-                        <Class.java>
-                        <Class.java>
+                        <MainSceneController.java>
 - A class <App.java> that runs the program
 
-
-
-## Getting Started
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-## Folder Structure
-The workspace contains two folders by default, where:
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-## Dependency Management
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
