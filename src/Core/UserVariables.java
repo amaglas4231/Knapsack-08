@@ -1,4 +1,4 @@
-package UI;
+package Core;
 
 public class UserVariables {
 
