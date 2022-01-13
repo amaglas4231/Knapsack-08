@@ -3,6 +3,7 @@ package Core;
 public class Pentominoes {
     private String name;
     private int[][][][] rotation;
+    private int rotations; // number of rotations
     private int value;
     private int amount;
 
@@ -14,12 +15,23 @@ public class Pentominoes {
 
     }
 
+    public Pentominoes(String n, int r, int v, int a) {
+        this.name = n;
+        this.rotations = r;
+        this.value = v;
+        this.amount = a;
+    }
+
     public String getName() {
         return this.name;
     }
 
-    public int[][][][] getRotations() {
+    public int[][][][] getRotation() {
         return this.rotation;
+    }
+
+    public int getRotations() {
+        return this.rotations;
     }
 
     public int getValue() {
@@ -34,8 +46,12 @@ public class Pentominoes {
         return this.name = n;
     }
 
-    public int[][][][] setRotations(int[][][][] r) {
+    public int[][][][] setRotation(int[][][][] r) {
         return this.rotation = r;
+    }
+
+    public int setRotations(int r) {
+        return this.rotations = r;
     }
 
     public int setValue(int v) {

@@ -72,6 +72,9 @@ public class ParcelList extends ArrayList<Parcels>{
         }
         return list;
     }
+
+    public void addWithAmount(Pentominoes pentominoes) {
+    }
 }
 /*{
 

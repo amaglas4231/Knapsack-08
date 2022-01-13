@@ -84,7 +84,7 @@ public class DepthSearch {
                             if (AllPentominoes.get(i).getAmount() <= 0) {
                                 continue;
                             }
-                            for (j = 0; j < AllPentominoes.get(i).getRotations().length; j++) {
+                            for (j = 0; j < AllPentominoes.get(i).getRotation().length; j++) {
                                 // System.out.println("CLEAN 2");
                                 if (UserVariables.container[k][l][m] == 1) {
                                     // System.out.println("CLEAN 3");
@@ -97,7 +97,7 @@ public class DepthSearch {
                                     int[] positionSkip = { k, l, sum };
                                     int[] piecesAndRotations = { i, j };
                                     // System.out.println("CLEAN 6");
-                                    if (addParcel(AllPentominoes.get(i).getRotations()[j], positionSkip,
+                                    if (addParcel(AllPentominoes.get(i).getRotation()[j], positionSkip,
                                             piecesAndRotations)) {
                                         int[][] a = { { k, l, sum }, { i, j } };
                                         stackAuPoivre.push(a);
@@ -140,7 +140,7 @@ public class DepthSearch {
                         j = removeMove[1][1];
                         int[] positionA = { k, l, m };
                         BackTrackingAttempts++;
-                        removePiece(AllPentominoes.get(i).getRotations()[j], positionA);
+                        removePiece(AllPentominoes.get(i).getRotation()[j], positionA);
                         m++;
                         score -= AllPentominoes.get(i).getValue();
                         // System.out.println("REMOVING A PIECE");

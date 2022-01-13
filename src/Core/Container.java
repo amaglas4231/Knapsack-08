@@ -9,7 +9,7 @@ public class Container {
     private int value;
 
     /**
-     * Default container sets the length to 33 (16.5 * 2), height to 5 (2.5 * 2),
+     * Default Constructor sets the length to 33 (16.5 * 2), height to 5 (2.5 * 2),
      * width to 8 (4 * 2) and the container to a new empty array
      */
     public Container() {
@@ -21,8 +21,9 @@ public class Container {
     }
 
     /**
+     * Private Constructor that makes a new container based on a given 3d array.
      * 
-     * @param cont
+     * @param cont - 3d representation of the container
      */
     private Container(int[][][] cont, int value) {
         length = cont.length;
@@ -31,6 +32,33 @@ public class Container {
 
         this.container = cont;
         this.value = value;
+    }
+
+    /**
+     * Getter for the length of the container.
+     * 
+     * @return - the length
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
+     * Getter for the height of the container.
+     * 
+     * @return - the height
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * Getter for the width of the container.
+     * 
+     * @return - the width
+     */
+    public int getWidth() {
+        return width;
     }
 
     /**
@@ -48,8 +76,8 @@ public class Container {
      * 
      * @param v - new value to be set
      */
-    public void setValue(int v) {
-        value = v;
+    public void increaseValue(int v) {
+        value += v;
     }
 
     /**
@@ -72,8 +100,19 @@ public class Container {
      * @return - number of gaps in Container.
      */
     public int getGapAmount() {
-        // TODO: count the n.o. gaps (basically the 0's)
-        return 0;
+        int gap = 0;
+
+        for (int x = 0; x < container.length; x++) {
+            for (int y = 0; y < container.length; y++) {
+                for (int z = 0; z < container.length; z++) {
+                    if (container[x][y][z] == 0) {
+                        gap++;
+                    }
+                }
+            }
+        }
+
+        return gap;
     }
 
     /**
@@ -96,30 +135,21 @@ public class Container {
     }
 
     /**
+     * Adds the 'piece' to the specified coordinates.
      * 
-     * @param toPlace
+     * @param parcel - piece to be placed
+     * @param x      - the x coordinate
+     * @param y      - the y coordinate
+     * @param z      - the z coordinate
      */
-    public void addParcel(int[][][] toPlace) {
-        for(int x = 0; x < this.length; x++) {
-            for(int y = 0; y < this.height; y++) {
-                for(int z = 0; z < this.width; z++) {
-                    // TODO: implement
+    public void addParcel(int[][][] parcel, int x, int y, int z) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                for (int k = 0; k < length; k++) {
+                    container[x + i][y + j][z + k] = parcel[i][j][k];
                 }
             }
         }
-        /*
-         * if (!checkEmpty(parcel, position)) {
-         * for (int i = 0; i < toPlace.length; i++) {
-         * for (int j = 0; j < toPlace[i].length; j++) {
-         * for (int k = 0; k < toPlace[i][j].length; k++) {
-         * if (parcel[i][j][k] == 1) {
-         * container[position[0] + i][position[1] + j][position[2] + k] = 1; //
-         * }
-         * }
-         * }
-         * }
-         * }
-         */
     }
 
     /**
@@ -153,65 +183,3 @@ public class Container {
     }
 
 }
-/*
- * private int[][][] rep; // 33 X 5 X 8 or 16.5 x 2.5 x 4
- * 
- * public Container(int[][][] representation) {
- * rep = representation;
- * }
- * 
- * public void addToContainer(int[][][] is, int v) {
- * for (int x = 0; x < rep.length; x++) {
- * for (int y = 0; y < rep.length; y++) {
- * for (int z = 0; z < rep.length; z++) {
- * if(rep[x][y][z] == 0)
- * rep[x][y][z] = v;
- * }
- * }
- * }
- * }
- * 
- * public void changeRep(int x, int y, int z) {
- * rep[x][y][z] = 1;
- * }
- * 
- * public int[][][] getRepresentation() {
- * return rep;
- * }
- * 
- * public void setRepresentation(int[][][] r) {
- * rep = r;
- * }
- * 
- * public int getElement(int x, int y, int z) {
- * return rep[x][y][z];
- * }
- * 
- * public int getValue() {
- * int value = 0;
- * for (int x = 0; x < rep.length; x++) {
- * for (int y = 0; y < rep.length; y++) {
- * for (int z = 0; z < rep.length; z++) {
- * value += rep[x][y][z];
- * }
- * }
- * }
- * 
- * return value;
- * }
- * 
- * public int getGapAmount() {
- * int gap = 0;
- * for (int x = 0; x < rep.length; x++) {
- * for (int y = 0; y < rep.length; y++) {
- * for (int z = 0; z < rep.length; z++) {
- * if (rep[x][y][z] == 0) {
- * gap++;
- * }
- * }
- * }
- * }
- * 
- * return gap;
- * }
- */

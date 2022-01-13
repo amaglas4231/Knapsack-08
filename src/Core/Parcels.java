@@ -4,7 +4,6 @@ public class Parcels {
 
     private String name;
     private int rotations; // number of rotations possible per parcel
-    // private int colors;
     private int value;
     private int placed;
     private int amount;
@@ -17,10 +16,9 @@ public class Parcels {
      * @param p
      * @param a
      */
-    public Parcels(String n, int r, /* int c */ int v, int p, int a) {
+    public Parcels(String n, int r, int v, int p, int a) {
         this.name = n;
         this.rotations = r;
-        // this.colors = c;
         this.value = v;
         this.placed = p;
         this.amount = a;
@@ -40,12 +38,6 @@ public class Parcels {
     public int getRotations() {
         return this.rotations;
     }
-
-    /*
-     * public int getColor(){
-     * return this.colors;
-     * }
-     */
 
     /**
      * @return
@@ -82,12 +74,6 @@ public class Parcels {
         return this.rotations = r;
     }
 
-    /*
-     * public int setColor(int c){
-     * return this.colors = c;
-     * }
-     */
-
     /**
      * @return
      */
@@ -109,9 +95,11 @@ public class Parcels {
         return this.amount = a;
     }
 
+    /**
+     * @return - a copy of the current parcel
+     */
     public Parcels copy() {
-        // TODO:
-        return null;
+        return new Parcels(this.name, this.rotations, this.value, this.placed, this.amount);
     }
 
 }
