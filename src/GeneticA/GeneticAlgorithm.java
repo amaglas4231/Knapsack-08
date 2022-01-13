@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-//import Draft.Parcels;
-import UI.UserVariables;
+import Core.UserVariables;
 
 public class GeneticAlgorithm {
     private static int PopulationSize = 100;

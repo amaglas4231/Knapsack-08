@@ -3,7 +3,7 @@ package GreedyA;
 import java.util.ArrayList;
 
 import Core.Parcels;
-import UI.UserVariables;
+import Core.UserVariables;
 
 public class GreedyAlgorithm {
     public static Parcels parcelA;

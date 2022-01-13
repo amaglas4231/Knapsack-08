@@ -60,7 +60,6 @@ public class DepthSearch {
      * -deleted the amount in Pentominoe Constructor
      * -
      */
-
     public static int[] depthSearching(ArrayList<Integer> b) {
         for (int z = 0; z < b.size(); z++) {
             Pentominoes temp = AllPentominoes.get(z);
