@@ -61,4 +61,8 @@ public class Pentominoes {
     public void setAmount(int a) {
         this.amount = a;
     }
+
+    public Pentominoes copy() {
+        return new Pentominoes(this.name, this.rotations, this.value, this.amount);
+    }
 }

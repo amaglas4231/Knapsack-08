@@ -5,7 +5,6 @@ package Core;
 */
 public class Rotations {
         // Each 1 corresponds to 0.5m
-        // TODO: replace 1s with the value of each parcel
 
         public static int[][][][] getL() {
                 int[][][][] LInt = { { { { 3 }, { 3 }, { 3 }, { 3 } }, { { 3 }, { 0 }, { 0 }, { 0 } } },

@@ -53,6 +53,16 @@ public class GreedyAlgorithm {
 
         FillContainer();
         Informations();
+
+        // for (int i = 0; i < UserVariables.container.length; i++) {
+        //     for (int j = 0; j < UserVariables.container[0].length; j++) {
+        //         for (int k = 0; k < UserVariables.container[0][0].length; k++) {
+        //             System.out.print(UserVariables.container[i][j][k] + " ");
+        //         }
+        //         System.out.println(" ");
+        //     }
+        //     System.out.println(" ");
+        // }
     }
 
     public static void main(String[] args) {
