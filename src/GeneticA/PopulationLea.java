@@ -20,4 +20,16 @@ public class PopulationLea {
         }
         return Population;
     }
+
+    // Used for Pentoes
+    public static ArrayList<ArrayList<Integer>> InitializePop2() {
+        for (int i = 0; i < PopulationSize; i++) {
+            ArrayList<Integer> element = new ArrayList<Integer>();
+            element.add(ThreadLocalRandom.current().nextInt(10, 200));
+            element.add(ThreadLocalRandom.current().nextInt(10, 200));
+            element.add(ThreadLocalRandom.current().nextInt(10, 200));
+            Population.add(element);
+        }
+        return Population;
+    }
 }

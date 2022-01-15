@@ -5,7 +5,6 @@ public class Parcels {
     private String name;
     private int rotations; // number of rotations possible per parcel
     private int value;
-    private int placed;
     private int amount;
 
     /**
@@ -16,11 +15,10 @@ public class Parcels {
      * @param p
      * @param a
      */
-    public Parcels(String n, int r, int v, int p, int a) {
+    public Parcels(String n, int r, int v, int a) {
         this.name = n;
         this.rotations = r;
         this.value = v;
-        this.placed = p;
         this.amount = a;
 
     }
@@ -44,13 +42,6 @@ public class Parcels {
      */
     public int getValue() {
         return this.value;
-    }
-
-    /**
-     * @return
-     */
-    public int getPlaced() {
-        return this.placed;
     }
 
     /**
@@ -84,13 +75,6 @@ public class Parcels {
     /**
      * @return
      */
-    public int setPlaced(int p) {
-        return this.placed = p;
-    }
-
-    /**
-     * @return
-     */
     public int setAmount(int a) {
         return this.amount = a;
     }
@@ -99,7 +83,7 @@ public class Parcels {
      * @return - a copy of the current parcel
      */
     public Parcels copy() {
-        return new Parcels(this.name, this.rotations, this.value, this.placed, this.amount);
+        return new Parcels(this.name, this.rotations, this.value, this.amount);
     }
 
 }

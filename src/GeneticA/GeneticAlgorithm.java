@@ -1,4 +1,5 @@
 package GeneticA;
+
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -7,20 +8,15 @@ import Core.UserVariables;
 public class GeneticAlgorithm {
     private static int PopulationSize = 100;
     private static double MutationRate = 0.75; // idk rn
-    // private static int Generation = 0;
-    private static int maxIteration = 1000;
+    private static int maxIteration = 10;
     public static boolean Placed = true;
-
+    public static int StackScore;
+    public static ArrayList<Integer> StackPento;
     static int[][][][] parcelARotations;
     static int[][][][] parcelBRotations;
     static int[][][][] parcelCRotations;
 
-    /**
-     * 
-     */
     public static ArrayList<ArrayList<Integer>> Crossover() {
-        /* CROSSOVER AND BABIES CREATION */
-        // Using tournament selection
         ArrayList<ArrayList<Integer>> selectedPop = new ArrayList<ArrayList<Integer>>();
         for (int j = 0; j < 10; j++) {
             ArrayList<ArrayList<Integer>> SubGroup = new ArrayList<ArrayList<Integer>>();
@@ -56,52 +52,43 @@ public class GeneticAlgorithm {
         }
         return selectedPop;
     }
-    /* END OF BABY FACTORY */
 
-    public static ArrayList<ArrayList<Integer>> MutationsBabyyy(ArrayList<ArrayList<Integer>> Pop) {
-        // Pop = Crossover();
+    // For each individual of population, mutates the value at a random index by
+    // giving it a new random value from 0 to 100
+    public static ArrayList<ArrayList<Integer>> Mutations(ArrayList<ArrayList<Integer>> Pop) {
         for (int i = 0; i < PopulationSize; i++) {
             int index = ThreadLocalRandom.current().nextInt(0, 3);
             Integer index2;
             if (Pop.get(i).get(index) > 0) {
-                index2 = Pop.get(i).get(index) + ThreadLocalRandom.current().nextInt(-10, 11);
-            } else { // adding a number between -10 and 10
-                index2 = Pop.get(i).get(index) + ThreadLocalRandom.current().nextInt(0, 11);
+                index2 = Pop.get(i).get(index) + ThreadLocalRandom.current().nextInt(-100, 101);
+            } else {
+                index2 = Pop.get(i).get(index) + ThreadLocalRandom.current().nextInt(0, 101);
             }
-            if (MutationRate > Math.random()) { // mutate 1/4 times
+            if (MutationRate > Math.random()) { // mutate 3/4 times
                 Pop.get(i).set(index, index2);
             }
         }
-        /*
-         * System.out.println("-----------POP post mutation-----------");
-         * for(int j = 0; j<PopulationSize; j++){
-         * System.out.println(PopulationLea.Population.get(j));
-         * }
-         * /*try{
-         * Thread.sleep(1000);
-         * }
-         * catch(InterruptedException ex)
-         * {
-         * Thread.currentThread().interrupt();
-         * }
-         */
         return Pop;
     }
 
-    /* INPUT IS IN ORDER A C D */
+    // Fitness criterias are the result of depthSearch for each individual and the
+    // volume difference between container and volume of each individual
     public static void FitnessFunction(ArrayList<ArrayList<Integer>> SubGroup, double[] score) {
         for (int i = 0; i < SubGroup.size(); i++) {
             ArrayList<Integer> o = new ArrayList<Integer>();
             o = SubGroup.get(i);
-            int[] result = DepthSearch.depthSearching(SubGroup.get(i)); /*
-                                                                         * difference entre volume total et volume pris
-                                                                         */
+            int[] result = DepthSearch.depthSearching(SubGroup.get(i));
+            if (StackScore < result[2]) {
+                StackScore = result[2];
+                StackPento = o;
+            }
             if (result[1] > UserVariables.ContainerVolume) {
-                score[i] = UserVariables.ContainerVolume - (result[1]);
+                score[i] = UserVariables.ContainerVolume - (result[1]); // penalizing when the total volume of each
+                                                                        // individual is bigger than volume of container
             } else {
                 score[i] = 0;
             }
-            score[i] += result[0];
+            score[i] += result[0]; // takes the score of depthSearch as a reward
         }
     }
 
@@ -115,9 +102,7 @@ public class GeneticAlgorithm {
         SubGroup.set(j, temp2);
     }
 
-    // COEUR SUR TOI CHOUPINETTE!!!<3
     static int partition(double[] arr, int low, int high, ArrayList<ArrayList<Integer>> SubGroup) {
-
         double pivot = arr[high];
 
         int i = (low - 1);
@@ -132,14 +117,7 @@ public class GeneticAlgorithm {
     }
 
     static void quickSort(double[] arr, int low, int high, ArrayList<ArrayList<Integer>> SubGroup) {
-
-        /*
-         * https://www.google.com/search?q=quicksort+gif&rlz=1C1CHBF_frFR784FR784&sxsrf=
-         * AOaemvJFx42IbUuRYt1qfWb964dDE5-97w:1641815371601&source=lnms&tbm=isch&sa=X&
-         * ved=2ahUKEwjL9Irwjqf1AhVMsaQKHWJZAZkQ_AUoAXoECAEQAw
-         */
         if (low < high) {
-
             int pi = partition(arr, low, high, SubGroup);
             quickSort(arr, low, pi - 1, SubGroup);
             quickSort(arr, pi + 1, high, SubGroup);
@@ -151,7 +129,7 @@ public class GeneticAlgorithm {
 
         for (int i = 0; i < maxIteration; i++) {
             ArrayList<ArrayList<Integer>> selectedPop = Crossover();
-            selectedPop = MutationsBabyyy(selectedPop);
+            selectedPop = Mutations(selectedPop);
             double[] score = new double[selectedPop.size()];
             FitnessFunction(selectedPop, score);
             quickSort(score, 0, selectedPop.size() - 1, selectedPop);
@@ -159,33 +137,6 @@ public class GeneticAlgorithm {
             PopulationLea.score = score;
             FitnessFunction(PopulationLea.Population, score);
             quickSort(score, 0, PopulationLea.Population.size() - 1, PopulationLea.Population);
-
-            /*
-             * System.out.println("-----------POP sorted-----------");
-             * for(int j = 0; j<PopulationSize; j++){
-             * System.out.println(PopulationLea.Population.get(j));
-             * System.out.println("Score:"+score[j]);
-             * }
-             * /*try{
-             * Thread.sleep(1000);
-             * }
-             * catch(InterruptedException ex)
-             * {
-             * Thread.currentThread().interrupt();
-             * }
-             */
-
-            // we take the index 0 of the selected pop
-            /*
-             * ArrayList<Integer> bestChromosome = selectedPop.get(selectedPop.size()-1);
-             * //we take the last chromosome of the selected pop since its the best one
-             * System.out.println("--------------PARTIAL SOLUTION-------------");
-             * System.out.println("Number of Pentoes : ["+ " T : "+
-             * bestChromosome.get(0)+" P : "+bestChromosome.get(1)+" L : "+bestChromosome.
-             * get(2));
-             * System.out.println("Best score is : "+score[selectedPop.size()-1]); //score
-             * of fitness function
-             */
         }
         double[] score = new double[PopulationLea.Population.size()];
         FitnessFunction(PopulationLea.Population, score);
@@ -203,38 +154,21 @@ public class GeneticAlgorithm {
 
         ArrayList<Integer> bestChromosome = PopulationLea.Population.get(PopulationLea.Population.size() - 1);
         System.out.println("---------------FINAL SOLUTION---------------");
-        System.out.println("Number of Pentoes : [" + " T : " + bestChromosome.get(0) + " P : " + bestChromosome.get(1)
-                + " L : " + bestChromosome.get(2) + " ]");
         System.out.println("Best fitness score is : " + PopulationLea.score[PopulationLea.Population.size() - 1]); // score
                                                                                                                    // of
                                                                                                                    // fitness
                                                                                                                    // function
-        System.out.println("Best score is : "
-                + ((bestChromosome.get(0) * 5) + (bestChromosome.get(1) * 4) + (bestChromosome.get(2) * 3)));
-
+        System.out.println("StackScore is : " + StackScore); // Number of pentoes which fit in the container
+        System.out.println("Stack Pentoes : [" + " T : " + StackPento.get(0) + " P : " + StackPento.get(1) + " L : "
+                + StackPento.get(2) + " ]"); // Number of pieces given from GA to the depthSearching
     }
 
     public static void main(String[] args) {
-        DepthSearch.InitialisePento();
-        // for(int i = 0 ; i<10 ; i++){
-        RunGa();
-
+        DepthSearch.InitialiseParcels();
+        for (int i = 0; i < 10; i++) {
+            StackScore = 0;
+            RunGa();
+        }
     }
-
-    /*
-     * PARCELS
-     * /*if(PopulationLea.Population.get(i).get(0)*2.0 +
-     * PopulationLea.Population.get(i).get(1)*3.375 +
-     * PopulationLea.Population.get(i).get(2)*3.0 > UserVariables.ContainerVolume){
-     * /*difference entre volume total et volume pris
-     * /*volume important que si rentre pas
-     * score[i] = UserVariables.ContainerVolume -
-     * (PopulationLea.Population.get(i).get(0)*2.0 +
-     * PopulationLea.Population.get(i).get(1)*3.375 +
-     * PopulationLea.Population.get(i).get(2)*3.0);
-     * }else{
-     * score[i]=0;
-     * }
-     */
 
 }

@@ -34,6 +34,10 @@ public class Container {
         this.value = value;
     }
 
+    public int[][][] getRepresentation() {
+        return container;
+    }
+
     /**
      * Getter for the length of the container.
      * 
@@ -142,12 +146,12 @@ public class Container {
      * @param y      - the y coordinate
      * @param z      - the z coordinate
      */
-    public void addParcel(int[][][] parcel, int x, int y, int z) {
+    public void addParcel(int[][][] parcel, int value, int x, int y, int z) {
         for (int i = 0; i < parcel.length; i++) {
             for (int j = 0; j < parcel[0].length; j++) {
                 for (int k = 0; k < parcel[0][0].length; k++) {
-                    if(container[x + i][y + j][z + k] == 0)
-                    container[x + i][y + j][z + k] = parcel[i][j][k];
+                    // System.out.println(x + " " + y + " " + z);
+                    container[x + i][y + j][z + k] = parcel[i][j][k] * value;
                 }
             }
         }
@@ -169,9 +173,9 @@ public class Container {
             for (int i = 0; i < piece.length; i++) {
                 for (int j = 0; j < piece[i].length; j++) {
                     for (int k = 0; k < piece[i][j].length; k++) {
-                        if (piece[i][j][k] == 1) {
-                            if (x + i > container.length || y + j > container[0].length
-                                    || z + k > container[0][0].length || container[x + i][y + j][z + k] != 1) {
+                        if (piece[i][j][k] != 0) {
+                            if (x + i >= container.length || y + j >= container[0].length
+                                    || z + k >= container[0][0].length || container[x + i][y + j][z + k] != 0) {
                                 return false;
                             }
 
@@ -189,9 +193,9 @@ public class Container {
      */
     public void printContainer() {
         for (int i = 0; i < container.length; i++) {
-            for (int j = 0; j < container[0].length; j++) {
-                for (int k = 0; k < container[0][0].length; k++) {
-                    System.out.print(container[i][j][k] + " ");
+            for (int j = 0; j < container[0][0].length; j++) {
+                for (int k = 0; k < container[0].length; k++) {
+                    System.out.print(container[i][k][j] + " ");
                 }
                 System.out.println(" ");
             }
