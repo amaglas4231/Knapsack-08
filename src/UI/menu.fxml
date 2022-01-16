@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="641.0" style="-fx-background-color: #191919;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuTest.menu">
+   <children>
+      <AnchorPane prefHeight="462.0" prefWidth="219.0" style="-fx-background-color: #333333;">
+         <children>
+            <VBox layoutX="60.0" layoutY="59.0" prefHeight="120.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Button fx:id="parcelEcBtn" layoutX="10.0" layoutY="10.0" lineSpacing="10.0" minHeight="50.0" mnemonicParsing="false" onAction="#display" prefWidth="100.0" style="-fx-background-color: #a41fff;" text="Exact Cover" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <stylesheets>
+                        <URL value="@CSS.css" />
+                        <URL value="@CSS.css" />
+                     </stylesheets>
+                  </Button>
+                  <Button fx:id="parcelDsBtn" layoutX="10.0" layoutY="10.0" lineSpacing="10.0" minHeight="50.0" mnemonicParsing="false" onAction="#display2" prefWidth="100.0" style="-fx-background-color: #a41fff;" text="Depth search" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <stylesheets>
+                        <URL value="@CSS.css" />
+                        <URL value="@CSS.css" />
+                     </stylesheets>
+                  </Button>
+                  <Button fx:id="parcelSilBtn" layoutX="10.0" layoutY="10.0" lineSpacing="10.0" minHeight="50.0" mnemonicParsing="false" onAction="#display3" prefWidth="100.0" style="-fx-background-color: #a41fff;" text="Sim-Anneal" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <stylesheets>
+                        <URL value="@CSS.css" />
+                        <URL value="@CSS.css" />
+                     </stylesheets>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox layoutX="60.0" layoutY="287.0" prefHeight="115.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Button fx:id="pentEcBtn" lineSpacing="10.0" minHeight="50.0" mnemonicParsing="false" onAction="#display4" prefWidth="100.0" style="-fx-background-color: #a41fff;" text="Exact Cover" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <stylesheets>
+                        <URL value="@CSS.css" />
+                        <URL value="@CSS.css" />
+                     </stylesheets>
+                  </Button>
+                  <Button fx:id="pentDsBtn" lineSpacing="10.0" minHeight="50.0" mnemonicParsing="false" onAction="#display5" prefWidth="100.0" style="-fx-background-color: #a41fff;" text="Depth search" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <stylesheets>
+                        <URL value="@CSS.css" />
+                        <URL value="@CSS.css" />
+                     </stylesheets>
+                  </Button>
+                  <Button fx:id="pentSimBtn" layoutX="10.0" layoutY="65.0" lineSpacing="10.0" minHeight="50.0" mnemonicParsing="false" onAction="#display6" prefWidth="100.0" style="-fx-background-color: #a41fff;" text="Sim-Anneal" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <stylesheets>
+                        <URL value="@CSS.css" />
+                        <URL value="@CSS.css" />
+                     </stylesheets>
+                  </Button>
+               </children>
+            </VBox>
+            <Pane layoutX="-16.0" layoutY="7.0" prefHeight="44.0" prefWidth="187.0" style="-fx-background-color: #5A02B9; -fx-background-radius: 5;">
+               <children>
+                  <Text fill="WHITE" layoutX="54.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parcels">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane layoutX="-43.0" layoutY="235.0" prefHeight="44.0" prefWidth="213.0" style="-fx-background-color: #5A02B9; -fx-background-radius: 5;">
+               <children>
+                  <Text fill="WHITE" layoutX="59.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pentominoes">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="347.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MUNCHIES" wrappingWidth="176.00005086263013">
+         <font>
+            <Font name="System Bold" size="33.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="328.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parcel Packing Solver">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="337.0" layoutY="165.0" prefHeight="109.0" prefWidth="196.0">
+         <children>
+            <HBox layoutX="5.0" layoutY="5.0" prefHeight="50.0" prefWidth="176.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="103.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="33.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="57.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="80.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="103.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="127.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5a02b9" height="50.0" layoutX="150.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

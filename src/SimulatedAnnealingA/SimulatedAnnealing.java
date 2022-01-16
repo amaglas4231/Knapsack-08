@@ -32,7 +32,7 @@ public class SimulatedAnnealing {
     private static final int ROTATIONS_PARCELS = 6; // 3 for A, 6 for B and 1 for C
     private static final int ROTATIONS_PENTOMINOES = 24; // 24 for L & P and 12 for T
 
-    private static long timeToRun = 30000;
+    private static long timeToRun = 10000;
 
     /**
      * Default constructor. The list is set to the maximum amount of each parcels to
@@ -393,12 +393,13 @@ public class SimulatedAnnealing {
 
     public static void main(String[] args) {
 // simulation 1
+/*
         alpha = 0.009;
         beta = 0.2;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
@@ -406,9 +407,9 @@ public class SimulatedAnnealing {
 
         beta = 0.5;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
@@ -416,21 +417,21 @@ public class SimulatedAnnealing {
 
         beta = 0.9;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
         }
-
+*/
 // simulation 2
         alpha = 0.005;
         beta = 0.2;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
@@ -438,9 +439,9 @@ public class SimulatedAnnealing {
 
         beta = 0.5;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
@@ -448,9 +449,9 @@ public class SimulatedAnnealing {
 
         beta = 0.9;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
@@ -460,9 +461,9 @@ public class SimulatedAnnealing {
         alpha = 0.002;
         beta = 0.2;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
@@ -470,9 +471,9 @@ public class SimulatedAnnealing {
 
         beta = 0.5;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
@@ -480,9 +481,9 @@ public class SimulatedAnnealing {
 
         beta = 0.9;
 
-        System.out.println(beta + " " + alpha);
+        System.out.println("New experiment: " + beta + " " + alpha);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             System.out.print((i + 1) + ") ");
             SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();

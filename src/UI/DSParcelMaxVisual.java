@@ -21,20 +21,16 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 import GeneticA.*;
-//import MenuTest.*;
-import SimulatedAnnealingA.SimulatedAnnealing;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import Core.Container;
 import Core.UserVariables;
-
 
 // alt shift F to format
 
-public class MainSceneController extends Application {
+public class DSParcelMaxVisual extends Application {
 
     private static final float WIDTH = 800;
     private static final float HEIGHT = 500;
@@ -44,16 +40,20 @@ public class MainSceneController extends Application {
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
     public static boolean pentobool = false;
-        
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //Max Val Pentos        
-        SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        simann.simulate();
+        // Max Values Parcel
 
-        int[][][] result = copyArray(simann.bestContainer.getRepresentation());
+        DepthSearch.InitialiseParcels();
+        ArrayList<Integer> Arr = new ArrayList<Integer>();
+        Arr.add(22); // C
+        Arr.add(10); // B
+        Arr.add(30); // A
+        DepthSearch.depthSearching(Arr);
+
+        int[][][] result = copyArray(UserVariables.container);
 
         SmartGroup group = new SmartGroup();
 
@@ -68,7 +68,6 @@ public class MainSceneController extends Application {
 
         PhongMaterial white = new PhongMaterial();
         white.setDiffuseColor(Color.WHITE);
-
 
         int xIndex = 0;
         for (int i = 0; i < 33; i++) {
@@ -85,8 +84,7 @@ public class MainSceneController extends Application {
 
                     if (result[i][j][k] == 0) {
                         box.setMaterial(white);
-                    }
-                    else if (result[i][j][k] == 1) {
+                    } else if (result[i][j][k] == 1) {
                         box.setMaterial(blue);
 
                     } else if (result[i][j][k] == 2) {
@@ -127,18 +125,18 @@ public class MainSceneController extends Application {
 
     }
 
-    public int[][][] copyArray(int[][][] array){
+    public int[][][] copyArray(int[][][] array) {
         int[][][] newArray = new int[array.length][array[0].length][array[0][0].length];
 
-        for(int i = 0; i < array.length; i++ ){
-            for(int j = 0; j < array[i].length; j++ ){
-                for(int k = 0; k < array[i][j].length; k++ ){
-                   newArray[i][j][k] = array[i][j][k];
-                   System.out.println(array[i][j][k]);
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                for (int k = 0; k < array[i][j].length; k++) {
+                    newArray[i][j][k] = array[i][j][k];
+
                 }
-                System.out.println("");
+
             }
-            System.out.println("");
+
         }
         return newArray;
     }
@@ -175,7 +173,7 @@ public class MainSceneController extends Application {
         launch();
     }
 
-    public static void bigMain(){
+    public static void bigMain() {
 
         launch();
     }
