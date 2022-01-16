@@ -6,8 +6,65 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DSParcelMaxVisual",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "UI.DSParcelMaxVisual",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
+            "name": "Launch DSParcelsExactCoverVisual",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "UI.DSParcelsExactCoverVisual",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
+            "name": "Launch DSPentosExactCoverVisual",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "UI.DSPentosExactCoverVisual",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
+            "name": "Launch SAParcelMaxVisual",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "UI.SAParcelMaxVisual",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
+            "name": "Launch DSPentosMaxVisual",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "UI.DSPentosMaxVisual",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
+            "name": "Launch DSPentosMaxVisual",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "UI.DSPentosMaxVisual",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
+            "name": "Launch SAPentosMaxVisual",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "UI.SAPentosMaxVisual",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
             "name": "Launch SimulatedAnnealing",
             "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "SimulatedAnnealingA.SimulatedAnnealing",
             "projectName": "Knapsack-08_d7baef1b"
         },
@@ -15,13 +72,14 @@
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "${file}"
         },
         {
             "type": "java",
             "name": "Launch App",
             "request": "launch",
-            "vmArgs": "--module-path /Users/andra/OneDrive/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "App",
             "projectName": "Knapsack-08_d7baef1b"
         },
@@ -29,6 +87,7 @@
             "type": "java",
             "name": "Launch DepthSearch",
             "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "GeneticA.DepthSearch",
             "projectName": "Knapsack-08_d7baef1b"
         },
@@ -36,34 +95,9 @@
             "type": "java",
             "name": "Launch GeneticAlgorithm",
             "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "GeneticA.GeneticAlgorithm",
             "projectName": "Knapsack-08_d7baef1b"
-        },
-        {
-            "type": "java",
-            "name": "Launch GreedyAlgorithm",
-            "request": "launch",
-            "mainClass": "GreedyA.GreedyAlgorithm",
-            "projectName": "Knapsack-08_d7baef1b"
-        },
-        {
-            "type": "java",
-            "name": "Launch MainSceneController",
-            "request": "launch",
-            "mainClass": "UI.MainSceneController",
-            "projectName": "Knapsack-08_d7baef1b"
-        },
-        {
-            "type": "java",
-            "name": "Launch GreedyAlg",
-            "request": "launch",
-            "mainClass": "Draft.GreedyAlg"
-        },
-        {
-            "type": "java",
-            "name": "Launch Leaaas",
-            "request": "launch",
-            "mainClass": "GA.Leaaas"
         }
     ]
 }
