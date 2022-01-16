@@ -35,12 +35,12 @@ public class DSPentosMaxVisual extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         // Max Val Pentos
-        DepthSearch.InitialisePento();
+        depthSearch.InitialisePento();
         ArrayList<Integer> Arr = new ArrayList<Integer>();
         Arr.add(187); // C
         Arr.add(35); // B
         Arr.add(12); // A
-        DepthSearch.depthSearching(Arr);
+        depthSearch.depthSearching(Arr);
 
         int[][][] result = copyArray(UserVariables.container);
 

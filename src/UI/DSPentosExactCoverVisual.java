@@ -37,12 +37,12 @@ public class DSPentosExactCoverVisual extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         //EC Pentos        
-            DepthSearch.InitialisePento();
+            depthSearch.InitialisePento();
             ArrayList<Integer> Arr = new ArrayList<Integer>();
             Arr.add(0); //C
             Arr.add(264);  //B
             Arr.add(0);  //A
-            DepthSearch.depthSearching(Arr);
+            depthSearch.depthSearching(Arr);
             
 
         int[][][] result = copyArray(UserVariables.container);

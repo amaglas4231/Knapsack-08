@@ -39,12 +39,12 @@ public class DSParcelsExactCoverVisual extends Application {
 
         // Parcels E.C.
 
-            DepthSearch.InitialiseParcels();
+            depthSearch.InitialiseParcels();
             ArrayList<Integer> Arr = new ArrayList<Integer>();
             Arr.add(22); //C
             Arr.add(30);  //A
             Arr.add(10);  //B
-            DepthSearch.depthSearching(Arr);
+            depthSearch.depthSearching(Arr);
             
         
 

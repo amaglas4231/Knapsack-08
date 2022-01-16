@@ -37,12 +37,12 @@ public class DSParcelMaxVisual extends Application {
 
         // Max Values Parcel
 
-        DepthSearch.InitialiseParcels();
+        depthSearch.InitialiseParcels();
         ArrayList<Integer> Arr = new ArrayList<Integer>();
         Arr.add(22); // C
         Arr.add(10); // B
         Arr.add(30); // A
-        DepthSearch.depthSearching(Arr);
+        depthSearch.depthSearching(Arr);
 
         int[][][] result = copyArray(UserVariables.container);
 

@@ -77,7 +77,7 @@ public class GeneticAlgorithm {
         for (int i = 0; i < SubGroup.size(); i++) {
             ArrayList<Integer> o = new ArrayList<Integer>();
             o = SubGroup.get(i);
-            int[] result = DepthSearch.depthSearching(SubGroup.get(i));
+            int[] result = depthSearch.depthSearching(SubGroup.get(i));
             if (StackScore < result[2]) {
                 StackScore = result[2];
                 StackPento = o;
@@ -164,7 +164,7 @@ public class GeneticAlgorithm {
     }
 
     public static void main(String[] args) {
-        DepthSearch.InitialiseParcels();
+        depthSearch.InitialiseParcels();
         for (int i = 0; i < 10; i++) {
             StackScore = 0;
             RunGa();

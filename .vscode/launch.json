@@ -6,6 +6,23 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "App",
+            "mainClass": "UI.App",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "App",
+            "projectName": "Knapsack-08_cfad132"
+        },
+        {
+            "type": "java",
             "name": "Launch DSParcelMaxVisual",
             "request": "launch",
             "vmArgs": "--module-path /Users/Casper/Desktop/JavaFX/javafx-sdk-17.0.1/lib --add-modules javafx.controls,javafx.fxml",
