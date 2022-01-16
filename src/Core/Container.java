@@ -1,16 +1,16 @@
 package Core;
 
 public class Container {
+    public int[][][] container; // 3d representation of the container
     private int length;
     private int height;
     private int width;
-    public int[][][] container; // 3d representation of the container
-
     private int value;
 
     /**
      * Default Constructor sets the length to 33 (16.5 * 2), height to 5 (2.5 * 2),
-     * width to 8 (4 * 2) and the container to a new empty array
+     * width to 8 (4 * 2) and the container to a new empty array of these
+     * dimensions
      */
     public Container() {
         length = 33;
@@ -34,6 +34,11 @@ public class Container {
         this.value = value;
     }
 
+    /**
+     * Getter for the representation of the container.
+     * 
+     * @return - 3d array representing the state of the container
+     */
     public int[][][] getRepresentation() {
         return container;
     }
@@ -75,16 +80,8 @@ public class Container {
     }
 
     /**
-     * Setter for the value of the container. Used to modify the value every time a
-     * new parcel is added.
+     * Getter for the volume of the container.
      * 
-     * @param v - new value to be set
-     */
-    public void increaseValue(int v) {
-        value += v;
-    }
-
-    /**
      * @return - the volume of the container based on the length, height and width
      */
     public int getVolume() {
@@ -120,9 +117,19 @@ public class Container {
     }
 
     /**
-     * Method used to create an identical Container to the actual Container.
+     * Setter for the value of the container. Used to modify the value every time a
+     * new parcel is added.
      * 
-     * @return A new, identical Container.
+     * @param v - new value to be increased with
+     */
+    public void increaseValue(int v) {
+        value += v;
+    }
+
+    /**
+     * Method used to create acopy of the current container.
+     * 
+     * @return - new identical container
      */
     public Container copy() {
         int[][][] newContainer = new int[container.length][container[0].length][container[0][0].length];
@@ -150,7 +157,6 @@ public class Container {
         for (int i = 0; i < parcel.length; i++) {
             for (int j = 0; j < parcel[0].length; j++) {
                 for (int k = 0; k < parcel[0][0].length; k++) {
-                    // System.out.println(x + " " + y + " " + z);
                     container[x + i][y + j][z + k] = parcel[i][j][k] * value;
                 }
             }
@@ -164,7 +170,7 @@ public class Container {
      * @param x     - the x coordinate
      * @param y     - the y coordinate
      * @param z     - the z coordinate
-     * @return - 'true' if it can be placed
+     * @return      - 'true' if it can be placed
      */
     public boolean checkIfFits(int[][][] piece, int x, int y, int z) {
         if (x < 0 || y < 0 || z < 0) {
@@ -184,6 +190,7 @@ public class Container {
                 }
             }
         }
+        
         return true;
     }
 

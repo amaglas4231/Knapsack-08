@@ -14,14 +14,13 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-import GeneticA.*;
+
 import java.util.ArrayList;
 
+import GeneticA.*;
 import Core.UserVariables;
 
-// alt shift F to format
-
-public class DSParcelMaxVisual extends Application {
+public class DSParcelsMaxVisual extends Application {
 
     private static final float WIDTH = 800;
     private static final float HEIGHT = 500;
@@ -37,12 +36,12 @@ public class DSParcelMaxVisual extends Application {
 
         // Max Values Parcel
 
-        depthSearch.InitialiseParcels();
+        DepthSearch.InitialiseParcels();
         ArrayList<Integer> Arr = new ArrayList<Integer>();
         Arr.add(22); // C
         Arr.add(10); // B
         Arr.add(30); // A
-        depthSearch.depthSearching(Arr);
+        DepthSearch.depthSearching(Arr);
 
         int[][][] result = copyArray(UserVariables.container);
 

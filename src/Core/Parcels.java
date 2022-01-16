@@ -8,19 +8,18 @@ public class Parcels {
     private int amount;
 
     /**
+     * Constructor for new parcel.
      * 
-     * @param n
-     * @param r
-     * @param v
-     * @param p
-     * @param a
+     * @param n - name ('A', 'B' or 'C')
+     * @param r - number of rotations
+     * @param v - value
+     * @param a - amount
      */
     public Parcels(String n, int r, int v, int a) {
         this.name = n;
         this.rotations = r;
         this.value = v;
         this.amount = a;
-
     }
 
     /**
@@ -80,7 +79,7 @@ public class Parcels {
     }
 
     /**
-     * @return - a copy of the current parcel
+     * @return - a new parcel that is an identical copy of the current parcel
      */
     public Parcels copy() {
         return new Parcels(this.name, this.rotations, this.value, this.amount);

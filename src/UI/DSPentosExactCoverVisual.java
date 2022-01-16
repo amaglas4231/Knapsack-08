@@ -14,12 +14,11 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-import GeneticA.*;
+
 import java.util.ArrayList;
+
+import GeneticA.*;
 import Core.UserVariables;
-
-
-// alt shift F to format
 
 public class DSPentosExactCoverVisual extends Application {
 
@@ -31,19 +30,17 @@ public class DSPentosExactCoverVisual extends Application {
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
     public static boolean pentobool = false;
-        
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //EC Pentos        
-            depthSearch.InitialisePento();
-            ArrayList<Integer> Arr = new ArrayList<Integer>();
-            Arr.add(0); //C
-            Arr.add(264);  //B
-            Arr.add(0);  //A
-            depthSearch.depthSearching(Arr);
-            
+        // EC Pentos
+        DepthSearch.InitialisePento();
+        ArrayList<Integer> Arr = new ArrayList<Integer>();
+        Arr.add(0); // C
+        Arr.add(264); // B
+        Arr.add(0); // A
+        DepthSearch.depthSearching(Arr);
 
         int[][][] result = copyArray(UserVariables.container);
 
@@ -61,7 +58,6 @@ public class DSPentosExactCoverVisual extends Application {
         PhongMaterial white = new PhongMaterial();
         white.setDiffuseColor(Color.WHITE);
 
-
         int xIndex = 0;
         for (int i = 0; i < 33; i++) {
 
@@ -77,8 +73,7 @@ public class DSPentosExactCoverVisual extends Application {
 
                     if (result[i][j][k] == 0) {
                         box.setMaterial(white);
-                    }
-                    else if (result[i][j][k] == 1) {
+                    } else if (result[i][j][k] == 1) {
                         box.setMaterial(blue);
 
                     } else if (result[i][j][k] == 2) {
@@ -119,18 +114,18 @@ public class DSPentosExactCoverVisual extends Application {
 
     }
 
-    public int[][][] copyArray(int[][][] array){
+    public int[][][] copyArray(int[][][] array) {
         int[][][] newArray = new int[array.length][array[0].length][array[0][0].length];
 
-        for(int i = 0; i < array.length; i++ ){
-            for(int j = 0; j < array[i].length; j++ ){
-                for(int k = 0; k < array[i][j].length; k++ ){
-                   newArray[i][j][k] = array[i][j][k];
-                   
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                for (int k = 0; k < array[i][j].length; k++) {
+                    newArray[i][j][k] = array[i][j][k];
+
                 }
-                
+
             }
-            
+
         }
         return newArray;
     }

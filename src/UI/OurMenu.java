@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-public class menu implements Initializable {
+public class OurMenu implements Initializable {
 
     @FXML
     private Button parcelDsBtn;

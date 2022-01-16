@@ -4,24 +4,30 @@
 
 ## Structure of the code
 
-In src we have 3 folders:
+In src we have 4 folders:
 - Core - for the helping classes:
                         <Container.java>
                         <ParcelList.java>
                         <Parcels.java>
                         <Pentominoes.java>
+                        <PentominoeList.java>
                         <Rotations.java>
-                        <UserInput.java>
                         <UserVariables.java>
 - GeneticA - for the genetic algorithm:
                         <DepthSearch.java>
                         <GeneticAlgorithm.java>
                         <PopulationLea.java>
-- GreedyA - for the greedy algorithm:
-                        <GreedyAlgorithm.java>
 - SimulatedAnnealingA - for the simulated annealing algorithm:
                         <SimulatedAnnealing.java>
 - UI - for the user interface classes:
-                        <MainSceneController.java>
-- A class <App.java> that runs the program
-
+                        <App.java>
+                        <CSS.css>
+                        <DSParcelsExactCoverVisual.java>
+                        <DSParcelsMaxVisual.java>
+                        <DSPentosExactCoverVisual.java>
+                        <DSPentosMaxVisual.java>
+                        <menu.fxml>
+                        <OurMenu.java>
+                        <SAParcelsMaxVisual.java>
+                        <SAPentosMaxVisual.java>
+                        <Shape.java>

@@ -7,6 +7,14 @@ public class Pentominoes {
     private int value;
     private int amount;
 
+    /**
+     * Constructor for new pentominoe.
+     * 
+     * @param n - name ('A', 'B', 'C', 'L', 'P' or 'T')
+     * @param r - representation of the rotations
+     * @param v - value
+     * @param a - amount
+     */
     public Pentominoes(String n, int[][][][] r, int v, int a) {
         this.name = n;
         this.rotation = r;
@@ -15,6 +23,14 @@ public class Pentominoes {
 
     }
 
+    /**
+     * Constructor for new pentominoe.
+     * 
+     * @param n - name ('L', 'P' or 'T')
+     * @param r - number of rotations
+     * @param v - value
+     * @param a - amount
+     */
     public Pentominoes(String n, int r, int v, int a) {
         this.name = n;
         this.rotations = r;

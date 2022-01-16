@@ -18,6 +18,7 @@ public class PopulationLea {
             element.add(ThreadLocalRandom.current().nextInt(10, 25));
             Population.add(element);
         }
+
         return Population;
     }
 
@@ -30,6 +31,7 @@ public class PopulationLea {
             element.add(ThreadLocalRandom.current().nextInt(10, 200));
             Population.add(element);
         }
+        
         return Population;
     }
 }

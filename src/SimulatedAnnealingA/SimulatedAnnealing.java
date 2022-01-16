@@ -2,17 +2,14 @@ package SimulatedAnnealingA;
 
 import java.util.ArrayList;
 
-import Core.Container;
-import Core.ParcelList;
-import Core.Parcels;
-import Core.PentominoeList;
-import Core.Pentominoes;
-import Core.Rotations;
+import Core.*;
 
 public class SimulatedAnnealing {
     private static double beta; // cooling factor
     private static double alpha; // heating factor
-    private static boolean valueOrVolume = false; // true = best value, false = best volume
+    private static final double INITIAL_TEMPERATURE = 0.2;
+
+    private static boolean valueOrVolume = false; // false = best value, true = best volume
     private static String parcORpent; // "abc" for A/B/C parcels, "pent" for pentominoes
 
     public Container bestContainer;
@@ -28,7 +25,6 @@ public class SimulatedAnnealing {
     private static int[][][][] pentominoePRotations;
     private static int[][][][] pentominoeTRotations;
 
-    private static final double INITIAL_TEMPERATURE = 0.2;
     private static final int ROTATIONS_PARCELS = 6; // 3 for A, 6 for B and 1 for C
     private static final int ROTATIONS_PENTOMINOES = 24; // 24 for L & P and 12 for T
 
@@ -203,16 +199,31 @@ public class SimulatedAnnealing {
         System.out.println(bestUnit);
     }
 
+    /**
+     * 
+     * @param temperature
+     * @return
+     */
     public double linearReduction(double temperature) {
         temperature = temperature - alpha;
         return temperature;
     }
 
+    /**
+     * 
+     * @param temperature
+     * @return
+     */
     public double geometricReduction(double temperature) {
         temperature = temperature * alpha;
         return temperature;
     }
 
+    /**
+     * 
+     * @param temperature
+     * @return
+     */
     public double slowDecreaseReduction(double temperature) {
         temperature = temperature / 1 + beta * temperature;
         return temperature;
@@ -227,14 +238,16 @@ public class SimulatedAnnealing {
             for (int j = 0; j < configuration[0].length; j++) {
                 int columnIndex;
                 boolean contains;
+
                 do {
                     contains = false;
-                    columnIndex = (int) (Math.random() * configuration[0].length); // TODO: could be changed to:
-                    // Math.random(sequence[0].length)
+                    columnIndex = (int) (Math.random() * configuration[0].length);
+
                     for (int k = j - 1; k > 0; k--)
                         if (configuration[0][k] == columnIndex)
                             contains = true;
                 } while (contains);
+
                 configuration[i][j] = columnIndex;
             }
         }
@@ -315,8 +328,6 @@ public class SimulatedAnnealing {
     private Container fill(int[][] s) {
         Container cont = new Container();
 
-        // System.out.print("\nNEW CONTAINER! ");
-
         if (parcORpent.equals("abc")) {
             for (int i = 0; i < s[0].length; i++) {
                 Parcels toPlace = parcelsList.get(s[0][i]).copy(); // make copy because of rotation
@@ -339,13 +350,13 @@ public class SimulatedAnnealing {
                     number = 3;
                 }
 
-                boolean stopPosition = true; // when the parcel is placed the for loops stop
                 int[][][] contRep = cont.getRepresentation();
+                boolean stopPosition = true; // when the parcel is placed the for loops stop
+
                 for (int x = 0; x < contRep.length && stopPosition; x++) { // 33 length
                     for (int y = 0; y < contRep[0].length && stopPosition; y++) { // 5 height
                         for (int z = 0; z < contRep[0][0].length && stopPosition; z++) { // 8 width
                             if (cont.checkIfFits(representationParcel, x, y, z)) {
-                                // System.out.print(toPlace.getName() + "\n");
                                 cont.addParcel(representationParcel, number, x, y, z);
                                 cont.increaseValue(toPlace.getValue());
                                 stopPosition = false;
@@ -400,96 +411,105 @@ public class SimulatedAnnealing {
         alpha = 0.009;
         beta = 0.2;
 
-        System.out.println("New experiment: " + beta + " " + alpha);
-
-        for (int i = 0; i < 2; i++) {
-            System.out.print((i + 1) + ") ");
-            SimulatedAnnealing simann = new SimulatedAnnealing("abc");
-            simann.simulate();
-        }
-
-        // beta = 0.5;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
-
-        // beta = 0.9;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
-        // // simulation 2
-        // alpha = 0.005;
-        // beta = 0.2;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
-
-        // beta = 0.5;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
-
-        // beta = 0.9;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
-
-        // // simulation 3
-        // alpha = 0.002;
-        // beta = 0.2;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
-
-        // beta = 0.5;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
-
-        // beta = 0.9;
-
-        // System.out.println("New experiment: " + beta + " " + alpha);
-
-        // for (int i = 0; i < 20; i++) {
-        //     System.out.print((i + 1) + ") ");
-        //     SimulatedAnnealing simann = new SimulatedAnnealing("pent");
-        //     simann.simulate();
-        // }
+        SimulatedAnnealing simann = new SimulatedAnnealing("abc");
+        simann.simulate();
     }
-
 }
+
+/*
+ * For experiments in main:
+ * // simulation 1
+ * alpha = 0.009;
+ * beta = 0.2;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("abc");
+ * simann.simulate();
+ * }
+ * 
+ * beta = 0.5;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ * 
+ * beta = 0.9;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ * // simulation 2
+ * alpha = 0.005;
+ * beta = 0.2;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ * 
+ * beta = 0.5;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ * 
+ * beta = 0.9;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ * 
+ * // simulation 3
+ * alpha = 0.002;
+ * beta = 0.2;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ * 
+ * beta = 0.5;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ * 
+ * beta = 0.9;
+ * 
+ * System.out.println("New experiment: " + beta + " " + alpha);
+ * 
+ * for (int i = 0; i < 20; i++) {
+ * System.out.print((i + 1) + ") ");
+ * SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+ * simann.simulate();
+ * }
+ */

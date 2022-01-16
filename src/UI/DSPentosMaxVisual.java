@@ -14,11 +14,11 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-import GeneticA.*;
-import java.util.ArrayList;
-import Core.UserVariables;
 
-// alt shift F to format
+import java.util.ArrayList;
+
+import GeneticA.*;
+import Core.UserVariables;
 
 public class DSPentosMaxVisual extends Application {
 
@@ -35,12 +35,12 @@ public class DSPentosMaxVisual extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         // Max Val Pentos
-        depthSearch.InitialisePento();
+        DepthSearch.InitialisePento();
         ArrayList<Integer> Arr = new ArrayList<Integer>();
         Arr.add(187); // C
         Arr.add(35); // B
         Arr.add(12); // A
-        depthSearch.depthSearching(Arr);
+        DepthSearch.depthSearching(Arr);
 
         int[][][] result = copyArray(UserVariables.container);
 
