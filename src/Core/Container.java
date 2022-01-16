@@ -4,7 +4,7 @@ public class Container {
     private int length;
     private int height;
     private int width;
-    private int[][][] container; // 3d representation of the container
+    public int[][][] container; // 3d representation of the container
 
     private int value;
 
@@ -192,10 +192,10 @@ public class Container {
      * Used for debugging only.
      */
     public void printContainer() {
-        for (int i = 0; i < container.length; i++) {
-            for (int j = 0; j < container[0][0].length; j++) {
-                for (int k = 0; k < container[0].length; k++) {
-                    System.out.print(container[i][k][j] + " ");
+        for (int i = 0; i < container[0].length; i++) {
+            for (int j = 0; j < container.length; j++) {
+                for (int k = 0; k < container[0][0].length; k++) {
+                    System.out.print(container[j][i][k] + " ");
                 }
                 System.out.println(" ");
             }

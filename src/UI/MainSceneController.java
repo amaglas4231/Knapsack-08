@@ -3,10 +3,16 @@ package UI;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -14,150 +20,185 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-
-import Core.*;
 import GeneticA.*;
-import SimulatedAnnealingA.*;
+//import MenuTest.*;
+import SimulatedAnnealingA.SimulatedAnnealing;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import Core.Container;
+import Core.UserVariables;
+
 
 // alt shift F to format
 
-//public class MainSceneController extends Application {
+public class MainSceneController extends Application {
 
-    // private static final float WIDTH = 800;
-    // private static final float HEIGHT = 500;
-    // private double anchorX, anchorY;
-    // private double anchorAngleX = 0;
-    // private double anchorAngleY = 0;
-    // private final DoubleProperty angleX = new SimpleDoubleProperty(0);
-    // private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+    private static final float WIDTH = 800;
+    private static final float HEIGHT = 500;
+    private double anchorX, anchorY;
+    private double anchorAngleX = 0;
+    private double anchorAngleY = 0;
+    private final DoubleProperty angleX = new SimpleDoubleProperty(0);
+    private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+    public static boolean pentobool = false;
+        
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-    // @Override
-    // public void start(Stage primaryStage) throws Exception {
+        //Max Val Pentos        
+        SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+        simann.simulate();
 
-    //     SmartGroup group = new SmartGroup();
+        int[][][] result = copyArray(simann.bestContainer.getRepresentation());
 
-    //     PhongMaterial red = new PhongMaterial();
-    //     red.setDiffuseColor(Color.RED);
+        SmartGroup group = new SmartGroup();
 
-    //     PhongMaterial green = new PhongMaterial();
-    //     green.setDiffuseColor(Color.GREEN);
+        PhongMaterial red = new PhongMaterial();
+        red.setDiffuseColor(Color.RED);
 
-    //     PhongMaterial blue = new PhongMaterial();
-    //     blue.setDiffuseColor(Color.BLUE);
+        PhongMaterial green = new PhongMaterial();
+        green.setDiffuseColor(Color.GREEN);
 
-    //     PhongMaterial white = new PhongMaterial();
-    //     white.setDiffuseColor(Color.WHITE);
+        PhongMaterial blue = new PhongMaterial();
+        blue.setDiffuseColor(Color.BLUE);
 
-    //     int[][][] result = GeneticAlgorithm.result;
+        PhongMaterial white = new PhongMaterial();
+        white.setDiffuseColor(Color.WHITE);
 
-    //     int xIndex = 0;
-    //     for (int i = 0; i < 5; i++) {
 
-    //         int yIndex = 0;
+        int xIndex = 0;
+        for (int i = 0; i < 33; i++) {
 
-    //         for (int j = 0; j < 8; j++) {
+            int yIndex = 0;
 
-    //             int zIndex = 0;
+            for (int j = 0; j < 5; j++) {
 
-    //             for (int k = 0; k < 33; k++) {
+                int zIndex = 0;
 
-    //                 Box box = new Box(5, 5, 5);
+                for (int k = 0; k < 8; k++) {
 
-    //                 if (result[i][j][k] == 0) {
-    //                     box.setMaterial(white);
-    //                 }
-    //                 if (result[i][j][k] == 3) {
-    //                     box.setMaterial(blue);
+                    Box box = new Box(5, 5, 5);
 
-    //                 } else if (result[i][j][k] == 4) {
-    //                     box.setMaterial(green);
+                    if (result[i][j][k] == 0) {
+                        box.setMaterial(white);
+                    }
+                    else if (result[i][j][k] == 1) {
+                        box.setMaterial(blue);
 
-    //                 } else if (result[i][j][k] == 5) {
-    //                     box.setMaterial(red);
+                    } else if (result[i][j][k] == 2) {
+                        box.setMaterial(green);
 
-    //                 }
+                    } else if (result[i][j][k] == 3) {
+                        box.setMaterial(red);
 
-    //                 box.translateZProperty().set(zIndex);
-    //                 box.translateYProperty().set(yIndex);
-    //                 box.translateXProperty().set(xIndex);
-    //                 group.getChildren().add(box);
+                    }
 
-    //                 zIndex += 6;
-    //             }
-    //             yIndex += 6;
-    //         }
-    //         xIndex += 6;
-    //     }
+                    box.translateZProperty().set(zIndex);
+                    box.translateYProperty().set(yIndex);
+                    box.translateXProperty().set(xIndex);
+                    group.getChildren().add(box);
 
-    //     Camera camera = new PerspectiveCamera();
+                    zIndex += 6;
+                }
+                yIndex += 6;
+            }
+            xIndex += 6;
+        }
 
-    //     Scene scene = new Scene(group, WIDTH, HEIGHT);
-    //     scene.setFill(Color.SILVER);
-    //     scene.setCamera(camera);
+        Camera camera = new PerspectiveCamera();
 
-    //     group.translateXProperty().set(WIDTH / 2);
-    //     group.translateYProperty().set(HEIGHT / 2);
-    //     group.translateZProperty().set(-600);
+        Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+        scene.setFill(Color.SILVER);
+        scene.setCamera(camera);
 
-    //     initMouseControl(group, scene, primaryStage);
+        group.translateXProperty().set(WIDTH / 2);
+        group.translateYProperty().set(HEIGHT / 2);
+        group.translateZProperty().set(-600);
 
-    //     primaryStage.setTitle("3D Knapsack");
-    //     primaryStage.setScene(scene);
-    //     primaryStage.show();
+        initMouseControl(group, scene, primaryStage);
 
-    // }
+        primaryStage.setTitle("3D Knapsack");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
-    // private void initMouseControl(SmartGroup group, Scene scene, Stage stage) {
-    //     Rotate xRotate;
-    //     Rotate yRotate;
-    //     group.getTransforms().addAll(
-    //             xRotate = new Rotate(0, Rotate.X_AXIS),
-    //             yRotate = new Rotate(0, Rotate.Y_AXIS));
-    //     xRotate.angleProperty().bind(angleX);
-    //     yRotate.angleProperty().bind(angleY);
+    }
 
-    //     scene.setOnMousePressed(event -> {
-    //         anchorX = event.getSceneX();
-    //         anchorY = event.getSceneY();
-    //         anchorAngleX = angleX.get();
-    //         anchorAngleY = angleY.get();
-    //     });
+    public int[][][] copyArray(int[][][] array){
+        int[][][] newArray = new int[array.length][array[0].length][array[0][0].length];
 
-    //     scene.setOnMouseDragged(event -> {
-    //         angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
-    //         angleY.set(anchorAngleY + anchorX - event.getSceneX());
-    //     });
+        for(int i = 0; i < array.length; i++ ){
+            for(int j = 0; j < array[i].length; j++ ){
+                for(int k = 0; k < array[i][j].length; k++ ){
+                   newArray[i][j][k] = array[i][j][k];
+                   System.out.println(array[i][j][k]);
+                }
+                System.out.println("");
+            }
+            System.out.println("");
+        }
+        return newArray;
+    }
 
-    //     stage.addEventHandler(ScrollEvent.SCROLL, event -> {
-    //         double movement = event.getDeltaY();
-    //         group.translateZProperty().set(group.getTranslateZ() - movement);
-    //     });
-    // }
+    private void initMouseControl(SmartGroup group, Scene scene, Stage stage) {
+        Rotate xRotate;
+        Rotate yRotate;
+        group.getTransforms().addAll(
+                xRotate = new Rotate(0, Rotate.X_AXIS),
+                yRotate = new Rotate(0, Rotate.Y_AXIS));
+        xRotate.angleProperty().bind(angleX);
+        yRotate.angleProperty().bind(angleY);
 
-    // public static void main(String[] args) {
-    //     launch(args);
+        scene.setOnMousePressed(event -> {
+            anchorX = event.getSceneX();
+            anchorY = event.getSceneY();
+            anchorAngleX = angleX.get();
+            anchorAngleY = angleY.get();
+        });
 
-    // }
+        scene.setOnMouseDragged(event -> {
+            angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
+            angleY.set(anchorAngleY + anchorX - event.getSceneX());
+        });
 
-    // class SmartGroup extends Group {
+        stage.addEventHandler(ScrollEvent.SCROLL, event -> {
+            double movement = event.getDeltaY();
+            group.translateZProperty().set(group.getTranslateZ() - movement);
+        });
+    }
 
-    //     Rotate r;
-    //     Transform t = new Rotate();
+    public static void main(String[] args) {
 
-    //     void rotateByX(int ang) {
-    //         r = new Rotate(ang, Rotate.X_AXIS);
-    //         t = t.createConcatenation(r);
-    //         this.getTransforms().clear();
-    //         this.getTransforms().addAll(t);
+        launch();
+    }
 
-    //     }
+    public static void bigMain(){
 
-    //     void rotateByY(int ang) {
-    //         r = new Rotate(ang, Rotate.Y_AXIS);
-    //         t = t.createConcatenation(r);
-    //         this.getTransforms().clear();
-    //         this.getTransforms().addAll(t);
+        launch();
+    }
 
-    //     }
-    // }
-//}
+    class SmartGroup extends Group {
+
+        Rotate r;
+        Transform t = new Rotate();
+
+        void rotateByX(int ang) {
+            r = new Rotate(ang, Rotate.X_AXIS);
+            t = t.createConcatenation(r);
+            this.getTransforms().clear();
+            this.getTransforms().addAll(t);
+
+        }
+
+        void rotateByY(int ang) {
+            r = new Rotate(ang, Rotate.Y_AXIS);
+            t = t.createConcatenation(r);
+            this.getTransforms().clear();
+            this.getTransforms().addAll(t);
+
+        }
+    }
+}

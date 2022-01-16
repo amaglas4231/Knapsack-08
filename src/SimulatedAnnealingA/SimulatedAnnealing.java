@@ -10,12 +10,12 @@ import Core.Pentominoes;
 import Core.Rotations;
 
 public class SimulatedAnnealing {
-    private double beta = 0.9; // cooling factor
-    private double alpha = 0.002; // heating factor
-    private static boolean valueOrVolume = false; // true = best value, false = best volume
-    private static String parcORpent = "abc"; // "pent" for pentominoes
+    private static double beta; // cooling factor
+    private static double alpha; // heating factor
+    private static boolean valueOrVolume = true; // true = best value, false = best volume
+    private static String parcORpent; // "abc" for A/B/C parcels, "pent" for pentominoes
 
-    private Container bestContainer;
+    public Container bestContainer;
     private ArrayList<Parcels> parcelsList;
     private ArrayList<Pentominoes> pentominoesList;
     private int[][] configuration;
@@ -32,45 +32,49 @@ public class SimulatedAnnealing {
     private static final int ROTATIONS_PARCELS = 6; // 3 for A, 6 for B and 1 for C
     private static final int ROTATIONS_PENTOMINOES = 24; // 24 for L & P and 12 for T
 
-    private static long timeToRun = 15000;
+    private static long timeToRun = 30000;
 
     /**
      * Default constructor. The list is set to the maximum amount of each parcels to
      * be used.
+     * 
+     * @param parcelType - string that is the type of parcel "abc" or "pent"
      */
-    public SimulatedAnnealing() {
+    public SimulatedAnnealing(String parcelType) {
+        setTypeParcel(parcelType);
         initiateParcelsRotations();
 
         if (parcORpent.equals("abc")) {
             ParcelList parcelList = new ParcelList();
 
-            parcelList.addWithAmount(new Parcels("A", parcelARotations.length, 3, 100));
-            parcelList.addWithAmount(new Parcels("B", parcelBRotations.length, 4, 100));
-            parcelList.addWithAmount(new Parcels("C", parcelCRotations.length, 5, 100));
+            parcelList.addWithAmount(new Parcels("A", parcelARotations.length, 3, 12));
+            parcelList.addWithAmount(new Parcels("B", parcelBRotations.length, 4, 35));
+            parcelList.addWithAmount(new Parcels("C", parcelCRotations.length, 5, 187));
 
             parcelsList = parcelList.getFullArray();
 
-            configuration = new int[2][parcelList.getTotalSize()]; // could also have 2 separate arrays: one for order and
-                                                              // one for rotation
+            configuration = new int[2][parcelList.getTotalSize()]; // could also have 2 separate arrays: one for order
+                                                                   // and
+            // one for rotation
         } else {
             PentominoeList pentList = new PentominoeList();
 
-            pentList.addWithAmount(new Pentominoes("L", pentominoeLRotations.length, 3,
-                    100));
-            pentList.addWithAmount(new Pentominoes("P", pentominoePRotations.length, 4,
-                    100));
             pentList.addWithAmount(new Pentominoes("T", pentominoeTRotations.length, 5,
-                    100));
+                    187));
+            pentList.addWithAmount(new Pentominoes("P", pentominoePRotations.length, 4,
+                    35));
+            pentList.addWithAmount(new Pentominoes("L", pentominoeLRotations.length, 3,
+                    12));
 
             pentominoesList = pentList.getFullArray();
 
             configuration = new int[2][pentList.getTotalSize()]; // could also have 2 separate arrays: one for order and
-                                                            // one for rotation
+            // one for rotation
         }
 
     }
 
-    // 
+    //
 
     /**
      * Constructor of this class. The list that will be used to fill a Container.
@@ -116,6 +120,15 @@ public class SimulatedAnnealing {
     }
 
     /**
+     * Sets the type of parcel that will be used to fill the container.
+     * 
+     * @param type - string that is "abc" or "pent"
+     */
+    private static void setTypeParcel(String type) {
+        parcORpent = type;
+    }
+
+    /**
      * Method used to fill a container and return it filled.
      * 
      * @return - the filled container.
@@ -130,7 +143,7 @@ public class SimulatedAnnealing {
      * The simulated annealing loop. It runs for a given time and sets the best
      * container to the best result it found.
      */
-    private void simulate() {
+    public void simulate() {
         // variable initialization
         long startTime = System.currentTimeMillis();
         double temperature = INITIAL_TEMPERATURE;
@@ -146,7 +159,7 @@ public class SimulatedAnnealing {
         if (valueOrVolume) // true = value, false = volume
             bestUnit = bestContainer.getValue();
         else
-            bestUnit = bestContainer.getParcelVolume();
+            bestUnit = - bestContainer.getGapAmount();
 
         // annealing loop
         while (System.currentTimeMillis() - startTime < timeToRun && bestContainer.getGapAmount() > 0) {
@@ -159,16 +172,20 @@ public class SimulatedAnnealing {
 
             int unit; // same as bestUnit, but for the current container
             if (valueOrVolume) {
-                unit = newContainer.getValue();  // value of the current container
+                unit = newContainer.getValue(); // value of the current container
             } else {
-                unit = newContainer.getParcelVolume();
+                unit = - newContainer.getGapAmount();
             }
+
+            // System.out.println("unit = " + unit + " | value = " + newContainer.getValue()
+            // + " | volume = " + newContainer.getParcelVolume());
 
             boolean better = false; // check if filling is better in new neighbour
             if (unit > bestUnit) {
                 better = true;
             } else {
-                temperature = linearReduction(temperature); // GeometricReduction(temperature) && SlowDecreaseReduction(temperature)
+                temperature = slowDecreaseReduction(temperature); // GeometricReduction(temperature) &&
+                // SlowDecreaseReduction(temperature)
                 double delta = (bestUnit - unit) / bestUnit;
                 double i = Math.random();
 
@@ -185,9 +202,8 @@ public class SimulatedAnnealing {
             }
         }
 
-        bestContainer.printContainer();
+        // bestContainer.printContainer();
         System.out.println(bestUnit);
-        //System.out.println(Arrays.deepToString(bestContainer.getRepresentation()));
     }
 
     public double linearReduction(double temperature) {
@@ -216,7 +232,7 @@ public class SimulatedAnnealing {
             do {
                 contains = false;
                 columnIndex = (int) (Math.random() * configuration[0].length); // TODO: could be changed to:
-                                                                          // Math.random(sequence[0].length)
+                // Math.random(sequence[0].length)
                 for (int k = j - 1; k > 0; k--)
                     if (configuration[0][k] == columnIndex)
                         contains = true;
@@ -311,9 +327,9 @@ public class SimulatedAnnealing {
                 }
 
                 int number = 0;
-                if(toPlace.getName().equals("A")) {
+                if (toPlace.getName().equals("A")) {
                     number = 1;
-                } else if(toPlace.getName().equals("B")) {
+                } else if (toPlace.getName().equals("B")) {
                     number = 2;
                 } else {
                     number = 3;
@@ -348,9 +364,9 @@ public class SimulatedAnnealing {
                 }
 
                 int number = 0;
-                if(toPlace.getName().equals("L")) {
+                if (toPlace.getName().equals("L")) {
                     number = 1;
-                } else if(toPlace.getName().equals("P")) {
+                } else if (toPlace.getName().equals("P")) {
                     number = 2;
                 } else {
                     number = 3;
@@ -376,9 +392,99 @@ public class SimulatedAnnealing {
     }
 
     public static void main(String[] args) {
+// simulation 1
+        alpha = 0.009;
+        beta = 0.2;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 25; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+        beta = 0.5;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 25; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+        beta = 0.9;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 25; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+// simulation 2
+        alpha = 0.005;
+        beta = 0.2;
+
+        System.out.println(beta + " " + alpha);
+
         for (int i = 0; i < 1; i++) {
             System.out.print((i + 1) + ") ");
-            SimulatedAnnealing simann = new SimulatedAnnealing();
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+        beta = 0.5;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 25; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+        beta = 0.9;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 25; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+// simulation 3
+        alpha = 0.002;
+        beta = 0.2;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 1; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+        beta = 0.5;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 25; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
+            simann.simulate();
+        }
+
+        beta = 0.9;
+
+        System.out.println(beta + " " + alpha);
+
+        for (int i = 0; i < 25; i++) {
+            System.out.print((i + 1) + ") ");
+            SimulatedAnnealing simann = new SimulatedAnnealing("pent");
             simann.simulate();
         }
     }
