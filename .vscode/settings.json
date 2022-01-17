@@ -1,4 +1,31 @@
 {
     "java.project.sourcePaths": ["src"],
-    "java.project.outputPath": "bin"
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.base.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.controls.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.fxml.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.graphics.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.media.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.swing.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.web.jar",
+        "c:\\Program Files\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.base.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.controls.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.fxml.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.graphics.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.media.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.swing.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.web.jar",
+        "c:\\Users\\andra\\OneDrive\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.base.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.controls.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.fxml.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.graphics.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.media.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.swing.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx.web.jar",
+        "c:\\Users\\Casper\\Desktop\\JavaFX\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar"
+    ]
 }

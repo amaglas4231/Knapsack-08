@@ -1,0 +1,5 @@
+.button:hover {
+    -fx-background-color: WHITE;
+    -fx-border-color: #4f0099;
+    -fx-border-width: 0px 0px 3px 0px;
+}
