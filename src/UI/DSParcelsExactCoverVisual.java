@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import GeneticA.*;
 import Core.UserVariables;
 
-// alt shift F to format
-
 public class DSParcelsExactCoverVisual extends Application {
 
     private static final float WIDTH = 800;
@@ -32,17 +30,25 @@ public class DSParcelsExactCoverVisual extends Application {
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
     public static boolean pentobool = false;
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        // Parcels E.C.
+        // EC PARCEL
+
+        begin(primaryStage);
+
+    }
+
+    public void begin(Stage primaryStage) {
+        // EC PARCEL
 
         DepthSearch.InitialiseParcels();
         ArrayList<Integer> Arr = new ArrayList<Integer>();
         Arr.add(22); // C
-        Arr.add(30); // A
-        Arr.add(10); // B
+        Arr.add(30); // B
+        Arr.add(10); // A
         DepthSearch.depthSearching(Arr);
 
         int[][][] result = copyArray(UserVariables.container);
@@ -101,7 +107,7 @@ public class DSParcelsExactCoverVisual extends Application {
 
         Camera camera = new PerspectiveCamera();
 
-        Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+        scene = new Scene(group, WIDTH, HEIGHT, true);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
 

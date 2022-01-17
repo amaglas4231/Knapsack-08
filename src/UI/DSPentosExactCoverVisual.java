@@ -31,15 +31,24 @@ public class DSPentosExactCoverVisual extends Application {
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
     public static boolean pentobool = false;
 
+    public static Scene scene;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        // EC Pentos
+        begin(primaryStage);
+
+    }
+
+    public void begin(Stage primaryStage) {
+
         DepthSearch.InitialisePento();
+
         ArrayList<Integer> Arr = new ArrayList<Integer>();
         Arr.add(0); // C
         Arr.add(264); // B
         Arr.add(0); // A
+
         DepthSearch.depthSearching(Arr);
 
         int[][][] result = copyArray(UserVariables.container);
@@ -98,7 +107,7 @@ public class DSPentosExactCoverVisual extends Application {
 
         Camera camera = new PerspectiveCamera();
 
-        Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+        scene = new Scene(group, WIDTH, HEIGHT, true);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
 
@@ -111,7 +120,6 @@ public class DSPentosExactCoverVisual extends Application {
         primaryStage.setTitle("3D Knapsack");
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
     public int[][][] copyArray(int[][][] array) {

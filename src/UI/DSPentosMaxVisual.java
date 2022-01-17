@@ -30,11 +30,19 @@ public class DSPentosMaxVisual extends Application {
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
     public static boolean pentobool = false;
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        // Max Val Pentos
+        // Pentos MAX VAL
+        begin(primaryStage);
+
+    }
+
+    public void begin(Stage primaryStage) {
+        // Pentos MAX VAL
+
         DepthSearch.InitialisePento();
         ArrayList<Integer> Arr = new ArrayList<Integer>();
         Arr.add(187); // C
@@ -98,7 +106,7 @@ public class DSPentosMaxVisual extends Application {
 
         Camera camera = new PerspectiveCamera();
 
-        Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+        scene = new Scene(group, WIDTH, HEIGHT, true);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
 

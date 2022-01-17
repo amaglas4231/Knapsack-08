@@ -29,11 +29,17 @@ public class DSParcelsMaxVisual extends Application {
     private double anchorAngleY = 0;
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
-    public static boolean pentobool = false;
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        // Max Values Parcel
+        begin(primaryStage);
+
+    }
+
+    public void begin(Stage primaryStage) {
         // Max Values Parcel
 
         DepthSearch.InitialiseParcels();
@@ -99,7 +105,7 @@ public class DSParcelsMaxVisual extends Application {
 
         Camera camera = new PerspectiveCamera();
 
-        Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+        scene = new Scene(group, WIDTH, HEIGHT, true);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
 
@@ -131,6 +137,11 @@ public class DSParcelsMaxVisual extends Application {
         return newArray;
     }
 
+    private Scene getScene() {
+
+        return this.scene;
+    }
+
     private void initMouseControl(SmartGroup group, Scene scene, Stage stage) {
         Rotate xRotate;
         Rotate yRotate;
@@ -159,11 +170,6 @@ public class DSParcelsMaxVisual extends Application {
     }
 
     public static void main(String[] args) {
-
-        launch();
-    }
-
-    public static void bigMain() {
 
         launch();
     }

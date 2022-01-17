@@ -14,9 +14,8 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
-import SimulatedAnnealingA.SimulatedAnnealing;
 
-// alt shift F to format
+import SimulatedAnnealingA.*;
 
 public class SAPentosMaxVisual extends Application {
 
@@ -28,11 +27,16 @@ public class SAPentosMaxVisual extends Application {
     private final DoubleProperty angleX = new SimpleDoubleProperty(0);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
     public static boolean pentobool = false;
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        // Max Values Parcel
+        begin(primaryStage);
+
+    }
+
+    public void begin(Stage primaryStage) {
 
         SimulatedAnnealing simann = new SimulatedAnnealing("pent");
         simann.simulate();
@@ -93,7 +97,7 @@ public class SAPentosMaxVisual extends Application {
 
         Camera camera = new PerspectiveCamera();
 
-        Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+        scene = new Scene(group, WIDTH, HEIGHT, true);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
 
